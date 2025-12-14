@@ -14,7 +14,7 @@ public class InternshipInfoDTO {
 
     @JsonProperty("internship_id")
     public String internshipId;
-    @JsonProperty("internship_req_skills")
+    @JsonProperty("required_skills")
     public ArrayList<String> internshipReqSkills;
     @JsonProperty("internship_location")
     public String internshipLocation;

@@ -14,6 +14,8 @@ public class UserInfoDTO {
 
     private int age;
     private String gender;
+
+    @JsonProperty("user_skills")
     private ArrayList<String> skills;
 
     @JsonProperty("user_location")
