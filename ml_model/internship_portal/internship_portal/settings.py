@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'internship_db',          # Your database name
         'USER': 'root',            # Your MySQL username
-        'PASSWORD': 'ramya@mysql',     # Your MySQL password
+        'PASSWORD': '9885413875@Ammu',     # Your MySQL password
         'HOST': 'localhost',              # Or your DB host
         'PORT': '3306',                   # Default 
     }

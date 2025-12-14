@@ -1,29 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from recommend_internship.ml.predictor import predict_new_user, predict_user_for_internships
-
-@csrf_exempt
-def predict_view(request):
-    if request.method == "POST":
-        body = json.loads(request.body)
-        result = predict_new_user(body)
-        return JsonResponse(result)
-    return JsonResponse({"error": "Only POST allowed"}, status=400)
-
-
-
-# @csrf_exempt
-# def batch_predict_view(request):
-#     if request.method == "POST":
-#         body = json.loads(request.body)
-#         user_info = body.get("user_info")
-#         internships = body.get("internships")
-#         if not user_info or not internships:
-#             return JsonResponse({"error": "Missing user_info or internships"}, status=400)
-#         results = predict_user_for_internships(user_info, internships)
-#         return JsonResponse(results)
-#     return JsonResponse({"error": "Only POST allowed"}, status=400)
+from recommend_internship.ml.predictor import predict_user_for_internships
 
 
 @csrf_exempt
@@ -37,7 +15,6 @@ def batch_predict_view(request):
             body = json.loads(body_bytes.decode("utf-8"))
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
-        print("Parsed body:", body)
         # Extract data
         user_info = body.get("user_info")
         internships = body.get("internships")
