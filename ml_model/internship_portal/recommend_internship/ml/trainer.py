@@ -1,10 +1,16 @@
 import os
 import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.discriminant_analysis import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MultiLabelBinarizer
 import joblib
+from .custom_encoders.KFoldTargetEncoder import KFoldTargetEncoder
+from .custom_encoders.MultiValueKFoldEncoder import MultiValueKFoldEncoder
 from recommend_internship.models import Application
+from sklearn.model_selection import cross_val_score
 
 
 BASE_DIR = os.path.dirname(__file__)  # points to recommend_internship/ml
@@ -19,39 +25,36 @@ def train_model():
     # Load data from DB
     qs = Application.objects.all().values()
     data = pd.DataFrame(qs)
-
-    # Preprocess
+    X = data.drop(columns = ['id', 'is_selected'], axis = 1)
+    y = data['is_selected']
+    # use pipe line to preprocess, split and train
     categorical_cols = ["gender", "user_location", "internship_location", "company", "sector", "role"]
-    data_encoded = pd.get_dummies(data, columns=categorical_cols, prefix=categorical_cols)
+    numerical_cols = ["age", "graduation_year", "gpa", "experience"]
+    multi_hot_cols = ["user_skills", "required_skills"]
 
-    # Skills multi-hot
-    mlb = MultiLabelBinarizer()
-    skills_encoded = mlb.fit_transform(data["user_skills"].apply(lambda x: x.split(",")))
-    skills_df = pd.DataFrame(skills_encoded, columns=[f"skill_{s}" for s in mlb.classes_])
+# -----------------------------------------------------------------------------------------------------------
+    # preprocess --> K fold target encoder for categorical_cols, 
+    # StandardScaler for numerical_cols and Target encoder with data explode for multi_hot_cols
+# ------------------------------------------------------------------------------------------------------------
 
-    mlb_req = MultiLabelBinarizer()
-    req_encoded = mlb_req.fit_transform(data["required_skills"].apply(lambda x: x.split(",")))
-    req_df = pd.DataFrame(req_encoded, columns=[f"req_skill_{s}" for s in mlb_req.classes_])
+    preprocessor = ColumnTransformer(
+        transformers = [
+            ('cat', KFoldTargetEncoder(cols = categorical_cols), categorical_cols), 
+            ('multi', MultiValueKFoldEncoder(cols = multi_hot_cols), multi_hot_cols),
+            ('num', StandardScaler(), numerical_cols)]
+    )
 
-    data_encoded = pd.concat([data_encoded.drop(["user_skills", "required_skills"], axis=1), 
-                              skills_df, req_df], axis=1)
+    pipeline = Pipeline(
+        [('preprocessor', preprocessor), ('model', LogisticRegression())]
+    )
 
-    # Features & labels
-    X = data_encoded.drop(["id", "is_selected"], axis=1, errors="ignore")
-    y = data_encoded["is_selected"]
+    pipeline.fit(X, y)
 
-    # Train
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model = LogisticRegression(max_iter=1000, random_state=42)
-    model.fit(X_train, y_train)
+    joblib.dump(pipeline, MODEL_PATH)
 
-    acc = model.score(X_test, y_test)
-    print(f"Model trained. Accuracy = {acc:.3f}")
+    scores = cross_val_score(pipeline, X, y, cv=5, scoring='accuracy')
+    print("CV accuracy scores:", scores)
+    print("Mean CV accuracy:", scores.mean())
 
-    # Save model & encoders
-    joblib.dump(model, MODEL_PATH)
-    joblib.dump(mlb, MLB_SKILLS_PATH)
-    joblib.dump(mlb_req, MLB_REQ_PATH)
-    joblib.dump(list(X_train.columns), FEATURES_PATH)
 
-    return acc
+    return scores.mean()
