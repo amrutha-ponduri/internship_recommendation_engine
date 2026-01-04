@@ -76,11 +76,10 @@ public class MlModelService implements MlModelRepository {
             Internship internship = internshipJpaRepository.findById(id).get();
             InternshipDTO internshipDTO = mapper.toInternshipDTO(internship);
             topFiveInternships.add(internshipDTO);
+            System.out.println(scoredInternshipDTO.getProbability());
             count++;
         }
-
         return topFiveInternships;
-
     }
 
 

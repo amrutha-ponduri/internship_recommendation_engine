@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'internship_portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'internship_db',          # Your database name
+        'NAME': 'recommendation_system',          # Your database name
         'USER': 'root',            # Your MySQL username
         'PASSWORD': '9885413875@Ammu',     # Your MySQL password
         'HOST': 'localhost',              # Or your DB host

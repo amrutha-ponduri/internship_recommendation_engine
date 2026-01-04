@@ -14,13 +14,26 @@ public class InternshipInfoDTO {
 
     @JsonProperty("internship_id")
     public String internshipId;
-    @JsonProperty("required_skills")
+    @JsonProperty("internship_benefits")
+    private String benefits;
+    @JsonProperty("internship_max_stipend")
+    private double maxStipend;
+    @JsonProperty("internship_min_stipend")
+    private double minStipend;
+    @JsonProperty("internship_field")
+    private String field;
+    @JsonProperty("internship_sector")
+    private String sector;
+    @JsonProperty("total_count")
+    private int totalCount;
+    @JsonProperty("internship_required_skills")
     public ArrayList<String> internshipReqSkills;
-    @JsonProperty("internship_location")
-    public String internshipLocation;
-
-    public String company;
-    public String sector;
-    public String role;
-
+    @JsonProperty("internship_min_experience")
+    private double minExperience;
+    @JsonProperty("internship_max_experience")
+    private double maxExperience;
+    @JsonProperty("company")
+    private String company;
+    @JsonProperty("internship_min_qualification")
+    private int minQualification;
 }

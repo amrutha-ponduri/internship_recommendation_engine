@@ -13,9 +13,7 @@ public interface InternshipRequirementsJpaRepository extends JpaRepository<Inter
     @Query("""
        SELECT ir.internship.id
        FROM InternshipRequirements ir
-       WHERE (ir.age IS NULL OR ir.age <= :age)
-         AND (ir.gender IS NULL OR ir.gender = :gender OR ir.gender = 'Any')
-         AND ir.minimumQualificationRank <= :userQualificationRank
+       WHERE ir.minimumQualificationRank <= :userQualificationRank
        """)
     List<Integer> findAllEligibleInternshipIds(int age, String gender, int userQualificationRank);
 

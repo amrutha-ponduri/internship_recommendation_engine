@@ -42,14 +42,6 @@ public class User {
     @ColumnDefault("0")
     private double experience;
 
-    @Column(name = "percentage")
-    @ColumnDefault("0")
-    private double percentage;
-
-//    // TODO : DELETE AFTER UPDATING DATA
-//    @Column(name = "highestqualification")
-//    private String highestQualification;
-
     @Column(name = "highest_qualification_rank")
     @ColumnDefault("0")
     private int highestQualificationRank;
@@ -60,10 +52,10 @@ public class User {
     @Column(name = "specialization")
     private String specialization;
 
-    @Column(name = "email")
-    private String email;
-
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserSkill> skills;
+
+    @Column(name = "csv_ref_id", nullable = true)
+    private int csvRefId;
 
 }

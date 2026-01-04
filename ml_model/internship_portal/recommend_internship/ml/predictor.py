@@ -14,14 +14,13 @@ mlb = joblib.load(MLB_SKILLS_PATH)
 mlb_req = joblib.load(MLB_REQ_PATH)
 feature_cols = joblib.load(FEATURES_PATH)
 
-categorical_cols = ["gender", "user_location", "internship_location", "company", "sector", "role"]
-
 def predict_user_for_internships(user_info: dict, internships: list):
     """
     user_info: dict with user data
     internships: list of dicts, each containing internship data including internship_id
     Returns: dict mapping internship_id -> predicted probability
     """
+    target_scores = {'Application Rejected': 0, 'Application Shortlisted': 1, 'Rejected in interview': 3, 'Selected': 6}
     results = []
 
     for internship in internships:
@@ -29,10 +28,20 @@ def predict_user_for_internships(user_info: dict, internships: list):
         data = {**user_info, **internship}
         df = pd.DataFrame([data])
 
-        prob = float(pipeline.predict_proba(df)[0][1])
+        # Ensure multi-hot columns are lists
+        for col in ['user_skills', 'internship_required_skills', 'internship_benefits']:
+            df[col] = df[col].apply(lambda x: x if isinstance(x, list) else [])
+
+        proba = pipeline.predict_proba(df)[0]
+        classes = pipeline.classes_
+
+        # Weighted score
+        score = sum(p * target_scores[c] for p, c in zip(proba, classes))
+
         results.append({
             "internship_id": data["internship_id"],
-            "score": prob
+            "score": score
         })
+
 
     return results

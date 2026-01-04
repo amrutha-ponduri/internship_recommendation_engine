@@ -12,19 +12,22 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class UserInfoDTO {
 
+    @JsonProperty("user_age")
     private int age;
+    @JsonProperty("user_gender")
     private String gender;
-
+    @JsonProperty("user_experience")
+    private double experience;
+    @JsonProperty("user_stream")
+    private String stream;
+    @JsonProperty("user_specialization")
+    private String specialization;
+    @JsonProperty("user_qualification")
+    private  int qualification;
+    @JsonProperty("user_district")
+    private String userDistrict;
+    @JsonProperty("user_state")
+    private String userState;
     @JsonProperty("user_skills")
     private ArrayList<String> skills;
-
-    @JsonProperty("user_location")
-    private String user_location;
-
-    @JsonProperty("graduation_year")
-    private int graduationYear;
-
-    private double gpa;
-    private double experience;
-
 }

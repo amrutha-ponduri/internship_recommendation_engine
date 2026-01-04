@@ -20,7 +20,7 @@ public class Skill {
     @Column(name = "skill_name", nullable = false, unique = true) // NOT NULL UNIQUE
     private String skillName;
 
-    @Column(name = "image_url")
-    private String imageURL;
+    @Column(name = "csv_ref_id", nullable = true)
+    private int csvRefId;
 
 }

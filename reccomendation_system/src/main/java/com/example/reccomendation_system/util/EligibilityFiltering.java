@@ -55,16 +55,17 @@ public class EligibilityFiltering {
             double threshold = 0.3;
             String queryStatement = """
                            SELECT ir.internship_id
-                           FROM internshiprequirements ir
-                           JOIN internship_skill i_s ON ir.internship_id = i_s.internship_id
-                           LEFT JOIN user_skill u_s ON i_s.skill_id = u_s.skill_id
-                           WHERE
-                           ir.age <= :age
-                           AND (ir.gender = :gender OR ir.gender = 'Any')
-                           AND (ir.minimum_qualification_rank <= :highestQualificationRank)
-                           AND u_s.user_id = :userId
-                           GROUP BY ir.internship_id
-                           HAVING COUNT(u_s.skill_id) * 1 / COUNT(i_s.skill_id) >= :threshold
+                    FROM internshiprequirements ir
+                    JOIN internship_skill i_s
+                        ON ir.internship_id = i_s.internship_id
+                    LEFT JOIN user_skill u_s
+                        ON i_s.skill_id = u_s.skill_id
+                        AND u_s.user_id = :userId
+                    WHERE
+                        ir.minimum_qualification_rank <= :highestQualificationRank
+                    GROUP BY ir.internship_id
+                    HAVING
+                        COUNT(u_s.skill_id) * 1.0 / COUNT(i_s.skill_id) >= :threshold;
                     """;
             Query nativeQuery = entityManager.createNativeQuery(queryStatement, Integer.class);
             nativeQuery.setParameter("age", userAge);

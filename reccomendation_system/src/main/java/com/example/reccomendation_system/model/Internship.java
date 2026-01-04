@@ -59,27 +59,15 @@ public class Internship {
     @Column(name = "benefits")
     private String benefits;
 
-    @Column(name = "addressline1")
-    private String addressLine1;
-
-    @Column(name = "addressline2")
-    private String addressLine2;
-
     @Column(name = "state")
     private String state;
 
     @Column(name = "district")
     private String district;
 
-    @Column(name = "block")
-    private String block;
-
-    @Column(name = "village")
-    private String village;
-
     @Column(name = "field")
     private String field;
 
-    @Column(name = "postalcode")
-    private String postalCode;
+    @Column(name = "csv_ref_id", nullable = true)
+    private int csvRefId;
 }

@@ -44,23 +44,8 @@ public class Mapper {
 
     private static String getAddress(Internship internship) {
         String address = "";
-        if (internship.getAddressLine1() != null) {
-            address += internship.getAddressLine1() + ", ";
-        }
-        if (internship.getAddressLine2() != null) {
-            address += internship.getAddressLine2() + ", ";
-        }
-        if (internship.getBlock() != null) {
-            address += internship.getBlock() + ", ";
-        }
-        if (internship.getVillage() != null) {
-            address += internship.getVillage() + ", ";
-        }
         if (internship.getDistrict() != null) {
             address += internship.getDistrict() + ", ";
-        }
-        if (internship.getPostalCode() != null) {
-            address += internship.getPostalCode() + ", ";
         }
         if (internship.getState() != null) {
             address += internship.getState();
@@ -74,9 +59,7 @@ public class Mapper {
         for (UserSkill userSkill : skills) {
             skillNames.add(userSkill.getSkill().getSkillName());
         }
-        String location = "Hyderabad";
-        double gpa = user.getPercentage() / 10;
-        return new UserInfoDTO(user.getAge(), user.getGender(), skillNames, location, 2023, gpa, user.getExperience());
+        return new UserInfoDTO(user.getAge(), user.getGender(), user.getExperience(), user.getStream(), user.getSpecialization(), user.getHighestQualificationRank(), user.getDistrict(), user.getState(), skillNames);
     }
 
     public InternshipInfoDTO toInternshipInfoDTO(Internship internship, InternshipRequirements internshipRequirements) {
@@ -87,8 +70,7 @@ public class Mapper {
         for (InternshipSkill internshipSkill : internshipSkills) {
             skillNames.add(internshipSkill.getSkill().getSkillName());
         }
-        String location = "Hyderabad";
         String companyName = internship.getCompany().getCompanyName();
-        return new InternshipInfoDTO(String.valueOf(internship.getId()), skillNames, location, companyName, internship.getSector(), internship.getTitle());
+        return new InternshipInfoDTO(String.valueOf(internship.getId()), internship.getBenefits(), internship.getMaxStipend(), internship.getMinStipend(), internship.getField(), internship.getSector(), internship.getTotalCount(), skillNames, internshipRequirements.getMinExperience(), internshipRequirements.getMaxExperience(), companyName, internshipRequirements.getMinimumQualificationRank());
     }
 }

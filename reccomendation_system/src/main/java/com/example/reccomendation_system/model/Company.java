@@ -23,4 +23,10 @@ public class Company {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
+    @Column(name = "company_tier", nullable = false)
+    private int companyTier;
+
+    @Column(name = "csv_ref_id", nullable = true)
+    private int csvRefId;
+
 }

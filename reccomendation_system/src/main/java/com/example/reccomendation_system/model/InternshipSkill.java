@@ -25,5 +25,4 @@ public class InternshipSkill {
     @MapsId("skillId")
     @JoinColumn(name = "skill_id")
     private Skill skill;
-
 }

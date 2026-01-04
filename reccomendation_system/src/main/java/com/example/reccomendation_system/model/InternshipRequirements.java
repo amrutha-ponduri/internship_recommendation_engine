@@ -28,16 +28,6 @@ public class InternshipRequirements {
     @Column(name = "mode")
     private String mode;
 
-    @Column(name = "percentage")
-    @ColumnDefault("0")
-    private double percentage;
-
-    @Column(name = "age")
-    private int age;
-
-    @Column(name = "gender")
-    private String gender;
-
     @Column(name = "minimum_qualification_rank")
     @ColumnDefault("0")
     private int minimumQualificationRank;
@@ -59,5 +49,8 @@ public class InternshipRequirements {
 
     @OneToMany(mappedBy = "internshipRequirements", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<InternshipSkill> skills;
+
+    @Column(name = "csv_ref_id", nullable = true)
+    private int csvRefId;
 
 }
