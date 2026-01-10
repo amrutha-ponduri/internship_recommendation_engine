@@ -1,5 +1,7 @@
 from .data_generation_template import DataGenerationTemplate
 
+# Running this file : python -m internship_portal.recommend_internship.data_generation.data_generation
+
 frontend_internships = [
     {
         "id": 1,
@@ -227,4 +229,276 @@ frontend_additional_skills = ['Python', 'MongoDB', 'ML']
 # dg_frontend.generate_internship_records(titles=frontend_titles, start=1)
 # dg_frontend.generate_user_records(start=1)
 # dg_frontend.generate_selection_records(start=1)
+
+java_backend_internships = [
+  {
+    "id": 1,
+    "required": ["java", "spring_boot", "sql", "hibernate", "rest_api"],
+    "must_have": ["java", "spring_boot", "rest_api"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 2,
+    "required": ["java", "spring_boot", "sql", "jwt", "validation"],
+    "must_have": ["java", "spring_boot", "sql"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 3,
+    "required": ["java", "spring", "jdbc", "sql", "logging"],
+    "must_have": ["java", "jdbc"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 4,
+    "required": ["java", "rest_api", "swagger", "postman"],
+    "must_have": ["java", "rest_api"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 5,
+    "required": ["java", "hibernate", "jpa", "sql"],
+    "must_have": ["java", "hibernate"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 6,
+    "required": ["java", "spring_boot", "pagination", "filtering"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 7,
+    "required": ["java", "sql", "indexing", "query_optimization"],
+    "must_have": ["java", "sql"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 8,
+    "required": ["java", "spring_boot", "exception_handling"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 9,
+    "required": ["java", "spring_boot", "security", "jwt"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 10,
+    "required": ["java", "rest_api", "microservices", "sql"],
+    "must_have": ["java", "rest_api"],
+    "min_experience": 0,
+    "max_experience": 1
+  }
+]
+
+backend_specialization_weights = [4, 2, 2, 7, 5]
+
+java_backend_titles = [
+  "Java Backend Developer Intern",
+  "Spring Boot Backend Intern",
+  "REST API Developer (Java) Intern",
+  "Java Server-Side Development Intern",
+  "Backend Software Engineer Intern - Java"
+]
+
+java_backend_additional_skills = ['html', 'css', 'Python']
+
+# dg_java_backend = DataGenerationTemplate(internships=java_backend_internships, additional_skills=java_backend_additional_skills, companies=cs_companies, specializations=cs_specializations, specialization_weights=backend_specialization_weights, stream='CS', category='java_back_end_development')
+# dg_java_backend.generate_skill_records()
+# dg_java_backend.generate_internship_records(titles=java_backend_titles, start=21)
+# dg_java_backend.generate_user_records(start=41)
+# dg_java_backend.generate_selection_records(start=101)
+
+java_full_stack_internships = [
+  {
+    "id": 1,
+    "required": ["java", "spring_boot", "html", "css", "javascript"],
+    "must_have": ["java", "html", "css"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 2,
+    "required": ["java", "spring_boot", "react", "rest_api"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 3,
+    "required": ["java", "jsp", "servlets", "jdbc"],
+    "must_have": ["java", "servlets"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 4,
+    "required": ["java", "spring", "jsp", "sql"],
+    "must_have": ["java", "spring"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 5,
+    "required": ["java", "html", "css", "javascript", "sql"],
+    "must_have": ["java", "html", "css"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 6,
+    "required": ["java", "spring_boot", "angular", "rest_api"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 7,
+    "required": ["java", "jdbc", "xml", "design_patterns"],
+    "must_have": ["java", "jdbc"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 8,
+    "required": ["java", "spring_core", "oop", "sql"],
+    "must_have": ["java", "oop"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 9,
+    "required": ["java", "spring", "html", "css"],
+    "must_have": ["java", "spring"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 10,
+    "required": ["java", "jsp", "servlets", "sql"],
+    "must_have": ["java", "jsp"],
+    "min_experience": 0,
+    "max_experience": 1
+  }
+]
+
+java_full_stack_specialization_weights = [1, 1, 1, 4, 2]
+
+java_full_stack_titles = [
+  "Java Full Stack Developer Intern",
+  "Enterprise Java Application Intern",
+  "Java Web Development Intern",
+  "J2EE Developer Intern",
+  "Java + Frontend Integration Intern"
+]
+
+java_full_stack_additional_skills = ['Python', 'Posgres', 'Docker']
+
+# dg_java_full_stack = DataGenerationTemplate(internships=java_full_stack_internships, additional_skills=java_full_stack_additional_skills, companies=cs_companies, specializations=cs_specializations, specialization_weights=java_full_stack_specialization_weights, stream = 'CS', category = 'java_full_stack_development')
+# dg_java_full_stack.generate_skill_records()
+# dg_java_full_stack.generate_internship_records(titles=java_full_stack_titles, start=41)
+# dg_java_full_stack.generate_user_records(start=81)
+# dg_java_full_stack.generate_selection_records(start = 201)
+
+specialized_java_internships = [
+  {
+    "id": 21,
+    "required": ["java", "microservices", "Docker", "rest_api"],
+    "must_have": ["java", "microservices"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 22,
+    "required": ["java", "aws", "spring_boot", "Docker"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 23,
+    "required": ["java", "junit", "mockito", "testing"],
+    "must_have": ["java", "junit"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 24,
+    "required": ["java", "selenium", "automation", "testng"],
+    "must_have": ["java", "selenium"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 25,
+    "required": ["java", "sql", "spark", "etl"],
+    "must_have": ["java", "sql"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 26,
+    "required": ["java", "multithreading", "jvm", "profiling"],
+    "must_have": ["java", "multithreading"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 27,
+    "required": ["java", "Docker", "ci_cd", "deployment"],
+    "must_have": ["java", "Docker"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 28,
+    "required": ["java", "data_structures", "performance"],
+    "must_have": ["java", "data_structures"],
+    "min_experience": 0,
+    "max_experience": 1
+  },
+  {
+    "id": 29,
+    "required": ["java", "sql", "analytics", "reporting"],
+    "must_have": ["java", "sql"],
+    "min_experience": 0,
+    "max_experience": 0
+  },
+  {
+    "id": 30,
+    "required": ["java", "spring_boot", "system_design"],
+    "must_have": ["java", "spring_boot"],
+    "min_experience": 0,
+    "max_experience": 1
+  }
+]
+
+specialized_java_internship_titles = [
+  "Java Microservices Intern",
+  "Java Cloud Development Intern",
+  "Java Automation & Testing Intern",
+  "Java Data Engineering Intern",
+  "Java DevOps Intern"
+]
+
+specialized_java_internships_weights = [1, 1, 1, 6, 3]
+
+dg_specialized_internships = DataGenerationTemplate(internships=specialized_java_internships, additional_skills = java_backend_additional_skills, companies=cs_companies, specializations = cs_specializations, specialization_weights=specialized_java_internships_weights, stream='CS', category='java_specialized_internships')
+# dg_specialized_internships.generate_skill_records()
+dg_specialized_internships.generate_internship_records(titles=specialized_java_internship_titles, start=61)
+dg_specialized_internships.generate_user_records(start=121)
+dg_specialized_internships.generate_selection_records(start=301)
+
 

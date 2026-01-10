@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime, timedelta
+from pathlib import Path
 import random
 
 import mysql.connector
@@ -8,8 +9,6 @@ from ..secretkeys import SecretKeys
 
 
 class DataGenerationTemplate :
-
-    path = 'D:/internship-recommendation-engine/ml_model/internship_portal/recommend_internship/prompting_data/' 
 
     def __init__(self, internships, additional_skills, companies, specializations, specialization_weights, stream, category = "") :
         
@@ -118,6 +117,11 @@ class DataGenerationTemplate :
             {"district": "Ratlam", "state": "Madhya Pradesh"}
         ]
         self.stream = stream
+        path = f'D:/internship-recommendation-engine/ml_model/internship_portal/recommend_internship/synthetic_table_data/'
+        base_path = Path(path)
+        new_folder = base_path / self.category 
+        new_folder.mkdir(parents = True, exist_ok = True)
+        self.path = path + self.category + '/'
 
     def generate_user_records(self, start) :
 
@@ -234,7 +238,7 @@ class DataGenerationTemplate :
                 internship_record['total_count'] = total_count
                 internship_record['benefits'] = random.sample(benefits, k = random.randint(1, 5))
                 internship_record['title'] = random.choice(titles)
-                internship_record['field'] = 'Frontend development'
+                internship_record['field'] = " ".join(self.category).split("_")
                 location = random.choice(self.districts_states)
                 internship_record['district'] = location['district']
                 internship_record['state'] = location['state']
@@ -257,7 +261,7 @@ class DataGenerationTemplate :
                 internship_requirements_record['mode'] = random.choices(modes_list, weights=modes_weights, k = 1)[0]
                 internship_requirements_record['stream'] = self.stream
                 requirements_sepcializations = self.specializations + ['Any']
-                requirements_sepcializations_weights = self.specialization_weights + [7]
+                requirements_sepcializations_weights = self.specialization_weights + [10]
                 internship_requirements_record['specialization'] = random.choices(requirements_sepcializations, weights = requirements_sepcializations_weights, k = 1)[0]
                 internship_requirements_record["external_id"] = j
                 internship_requirements_record['internship_id'] = j
@@ -283,7 +287,7 @@ class DataGenerationTemplate :
         selection_records_file = training_path + f'selection_{self.category}.csv'
         j = start
         for internship in self.internships:
-            for _ in range(30):
+            for _ in range(10):
                 user_skills_list = self.generate_user_skills(internship['required'])
                 
                 selection_record = {
