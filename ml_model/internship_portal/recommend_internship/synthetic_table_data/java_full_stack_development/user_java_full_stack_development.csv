@@ -1,41 +1,41 @@
 experience,name,age,highest_qualfication_rank,district,state,stream,gender,external_id,id,specialization
-1,Varun,26,6,Ahmednagar,Maharashtra,CS,Male,81,81,Software Engineering & Development
-4,Anita,21,5,Chennai,Tamil Nadu,CS,Female,82,82,Software Engineering & Development
-3,Lokesh,18,5,Jabalpur,Madhya Pradesh,CS,Not specified,83,83,Cybersecurity & Information Security
-5,Omkar,26,3,Bareilly,Uttar Pradesh,CS,Not specified,84,84,Artificial Intelligence & Machine Learning
-6,Hemant,19,3,Tumakuru,Karnataka,CS,Not specified,85,85,Cloud Computing & DevOps
-2,Keerthi,25,5,Shivamogga,Karnataka,CS,Male,86,86,Software Engineering & Development
-6,Aarav,20,3,Ajmer,Rajasthan,CS,Not specified,87,87,Cybersecurity & Information Security
-2,Uma,30,5,Hubballi-Dharwad,Karnataka,CS,Male,88,88,Software Engineering & Development
-3,Ganesh,30,5,Mumbai,Maharashtra,CS,Female,89,89,Cybersecurity & Information Security
-6,Sunil,22,4,Suryapet,Telangana,CS,Female,90,90,Software Engineering & Development
-0,Aishwarya,21,4,Meerut,Uttar Pradesh,CS,Female,91,91,Cloud Computing & DevOps
-4,Shivam,20,6,Aligarh,Uttar Pradesh,CS,Female,92,92,Cloud Computing & DevOps
-0,Amit,19,4,Jaipur,Rajasthan,CS,Not specified,93,93,Artificial Intelligence & Machine Learning
-4,Uma,24,4,Siliguri,West Bengal,CS,Not specified,94,94,Cloud Computing & DevOps
-3,Tejas,21,6,Madurai,Tamil Nadu,CS,Not specified,95,95,Software Engineering & Development
-6,Usha,25,3,Hooghly,West Bengal,CS,Male,96,96,Software Engineering & Development
-2,Saurabh,18,6,Bhilwara,Rajasthan,CS,Not specified,97,97,Software Engineering & Development
-3,Arjun,25,6,Bhopal,Madhya Pradesh,CS,Male,98,98,Software Engineering & Development
-1,Mounika,23,6,Pathanamthitta,Kerala,CS,Male,99,99,Cloud Computing & DevOps
-5,Riya,28,4,Erode,Tamil Nadu,CS,Not specified,100,100,Software Engineering & Development
-6,Mohit,29,3,Salem,Tamil Nadu,CS,Female,101,101,Software Engineering & Development
-1,Madhav,26,5,Kolhapur,Maharashtra,CS,Female,102,102,Software Engineering & Development
-5,Yash,21,6,Darjeeling,West Bengal,CS,Not specified,103,103,Software Engineering & Development
-6,Madhav,22,3,Vellore,Tamil Nadu,CS,Not specified,104,104,Software Engineering & Development
-3,Jyoti,21,3,Thane,Maharashtra,CS,Male,105,105,Artificial Intelligence & Machine Learning
-0,Bharti,24,6,Aligarh,Uttar Pradesh,CS,Female,106,106,Software Engineering & Development
-3,Vinay,25,6,Bareilly,Uttar Pradesh,CS,Male,107,107,Software Engineering & Development
-0,Uma,20,6,Howrah,West Bengal,CS,Male,108,108,Artificial Intelligence & Machine Learning
-3,Kiran,22,3,Amravati,Maharashtra,CS,Male,109,109,Artificial Intelligence & Machine Learning
-0,Gaurav,27,3,Thanjavur,Tamil Nadu,CS,Male,110,110,Cloud Computing & DevOps
-5,Ritu,18,5,North 24 Parganas,West Bengal,CS,Not specified,111,111,Cloud Computing & DevOps
-5,Sanjay,21,5,Kasaragod,Kerala,CS,Not specified,112,112,Cloud Computing & DevOps
-2,Madhav,30,3,Erode,Tamil Nadu,CS,Not specified,113,113,Software Engineering & Development
-5,Saurabh,18,6,Bardhaman,West Bengal,CS,Male,114,114,Software Engineering & Development
-6,Smita,22,6,Jalgaon,Maharashtra,CS,Female,115,115,Cloud Computing & DevOps
-1,Usha,29,5,Hubballi-Dharwad,Karnataka,CS,Not specified,116,116,Software Engineering & Development
-6,Dinesh,30,4,Wayanad,Kerala,CS,Female,117,117,Cybersecurity & Information Security
-6,Hemant,23,3,Jodhpur,Rajasthan,CS,Not specified,118,118,Cybersecurity & Information Security
-4,Shivam,23,6,Mumbai,Maharashtra,CS,Female,119,119,Cybersecurity & Information Security
-4,Suresh,27,6,Bengaluru Urban,Karnataka,CS,Male,120,120,Artificial Intelligence & Machine Learning
+3,Deepak,26,4,Alwar,Rajasthan,CS,Female,81,81,Software Engineering & Development
+6,Anup,24,6,Rangareddy,Telangana,CS,Not specified,82,82,Software Engineering & Development
+6,Omkar,25,5,Nagpur,Maharashtra,CS,Not specified,83,83,Data Science & Big Data Analytics
+4,Mounika,23,4,Amravati,Maharashtra,CS,Not specified,84,84,Cloud Computing & DevOps
+3,Aarav,29,6,Warangal,Telangana,CS,Male,85,85,Artificial Intelligence & Machine Learning
+1,Suresh,19,5,Warangal,Telangana,CS,Male,86,86,Software Engineering & Development
+4,Sneha,28,3,Kolkata,West Bengal,CS,Female,87,87,Cloud Computing & DevOps
+5,Smita,18,6,Darjeeling,West Bengal,CS,Not specified,88,88,Software Engineering & Development
+0,Deepak,29,3,Ballari,Karnataka,CS,Not specified,89,89,Software Engineering & Development
+0,Riya,22,3,Erode,Tamil Nadu,CS,Female,90,90,Data Science & Big Data Analytics
+4,Madhav,21,4,Varanasi,Uttar Pradesh,CS,Female,91,91,Data Science & Big Data Analytics
+5,Madhav,27,5,Jabalpur,Madhya Pradesh,CS,Male,92,92,Artificial Intelligence & Machine Learning
+0,Jyoti,25,3,Salem,Tamil Nadu,CS,Not specified,93,93,Cloud Computing & DevOps
+2,Rohini,28,6,Ujjain,Madhya Pradesh,CS,Not specified,94,94,Artificial Intelligence & Machine Learning
+3,Pranav,21,6,Mysuru,Karnataka,CS,Male,95,95,Software Engineering & Development
+0,Jyoti,30,4,Ernakulam,Kerala,CS,Male,96,96,Data Science & Big Data Analytics
+4,Uma,29,4,Bikaner,Rajasthan,CS,Not specified,97,97,Software Engineering & Development
+3,Shubham,19,5,Rangareddy,Telangana,CS,Male,98,98,Cloud Computing & DevOps
+5,Lokesh,19,6,Hooghly,West Bengal,CS,Female,99,99,Software Engineering & Development
+0,Rajesh,26,6,Udaipur,Rajasthan,CS,Female,100,100,Cloud Computing & DevOps
+5,Mounika,26,4,Siliguri,West Bengal,CS,Female,101,101,Data Science & Big Data Analytics
+0,Lokesh,18,4,Madurai,Tamil Nadu,CS,Female,102,102,Data Science & Big Data Analytics
+4,Rahul,21,6,Dewas,Madhya Pradesh,CS,Male,103,103,Cloud Computing & DevOps
+1,Aishwarya,24,6,Lucknow,Uttar Pradesh,CS,Male,104,104,Cloud Computing & DevOps
+6,Hemant,22,5,Kannur,Kerala,CS,Female,105,105,Artificial Intelligence & Machine Learning
+6,Siddharth,22,4,Karimnagar,Telangana,CS,Male,106,106,Cloud Computing & DevOps
+1,Manish,25,4,Ratlam,Madhya Pradesh,CS,Female,107,107,Cloud Computing & DevOps
+2,Pranav,30,3,Wayanad,Kerala,CS,Not specified,108,108,Software Engineering & Development
+1,Tejas,30,6,Pathanamthitta,Kerala,CS,Male,109,109,Artificial Intelligence & Machine Learning
+2,Bhushan,30,5,Gwalior,Madhya Pradesh,CS,Not specified,110,110,Software Engineering & Development
+1,Kunal,28,6,Ratlam,Madhya Pradesh,CS,Male,111,111,Cybersecurity & Information Security
+4,Shivam,22,4,Udaipur,Rajasthan,CS,Female,112,112,Cloud Computing & DevOps
+0,Vinay,28,3,Shivamogga,Karnataka,CS,Not specified,113,113,Cloud Computing & DevOps
+1,Ashok,29,5,Khammam,Telangana,CS,Female,114,114,Software Engineering & Development
+2,Ashok,27,5,Bareilly,Uttar Pradesh,CS,Male,115,115,Software Engineering & Development
+2,Amit,21,5,Malda,West Bengal,CS,Not specified,116,116,Cloud Computing & DevOps
+2,Keerthi,26,4,Sikar,Rajasthan,CS,Female,117,117,Software Engineering & Development
+2,Priya,28,6,Mangaluru,Karnataka,CS,Not specified,118,118,Software Engineering & Development
+2,Lakshmi,27,5,Mumbai,Maharashtra,CS,Not specified,119,119,Software Engineering & Development
+5,Prakash,22,6,Aurangabad,Maharashtra,CS,Not specified,120,120,Software Engineering & Development

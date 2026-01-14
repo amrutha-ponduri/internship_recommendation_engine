@@ -158,7 +158,7 @@ class DataGenerationTemplate :
             for _ in range(4) :
                 # user data
                 user_record = {}
-                user_skills_domain = internship['required'] + random.sample(self.additional_skills, k=random.randint(0, len(self.additional_skills)))
+                user_skills_domain = internship['must_have'] + random.sample(self.additional_skills, k=random.randint(0, len(self.additional_skills)))
                 user_skills = self.generate_user_skills(user_skills_domain)
                 for skill in user_skills :
                     user_skill_record = {}
@@ -238,7 +238,7 @@ class DataGenerationTemplate :
                 internship_record['total_count'] = total_count
                 internship_record['benefits'] = random.sample(benefits, k = random.randint(1, 5))
                 internship_record['title'] = random.choice(titles)
-                internship_record['field'] = " ".join(self.category).split("_")
+                internship_record['field'] = " ".join(self.category.split("_"))
                 location = random.choice(self.districts_states)
                 internship_record['district'] = location['district']
                 internship_record['state'] = location['state']
@@ -292,7 +292,7 @@ class DataGenerationTemplate :
                 
                 selection_record = {
                     'user_skills': ",".join(user_skills_list),
-                    'user_experience': random.randint(internship['min_experience'], internship['max_experience']),
+                    'user_experience': random.randint(0, internship['max_experience'] + 1),
                     'internship_field': " ".join(self.category.split("_")),
                     'internship_sector': 'Technology',
                     'internship_required_skills': ",".join(internship['required']),
@@ -315,7 +315,16 @@ class DataGenerationTemplate :
                 if selection_record['is_exp_in_range']:
                     prob += 0.25
 
-                selection_record['is_selected'] = int(random.random() < prob)
+                if prob == 0.85 :
+                    selection_record['is_selected'] = 1
+                elif prob >= 0.60 :
+                    selection_weights = [10, 2]
+                    selection = [1, 0]
+                    selection_record['is_selected'] = random.choices(selection, weights=selection_weights)[0]
+                else :
+                    selection_weights = [1, 6]
+                    selection = [1, 0]
+                    selection_record['is_selected'] = random.choices(selection, weights=selection_weights)[0]
 
                 selection_record['csv_ref_id'] = j
                 j += 1
