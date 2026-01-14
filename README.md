@@ -176,10 +176,8 @@ Update it like this:
 | Method | Endpoint | Request Body | Description |
 |--------|-----------|-----------|-------------|
 | GET    | `/users/{userId}` |-| Fetch user details |
-| POST   | `/internships/filtered/{userId}` |optional| Get internships for a user (via ML model) |
 | GET    | `/internship/details/{internshipId}` |-| Internship details |
-| POST    | `/internships/eligible/{userId}` |{"preferred_mode": "[preferred_mode]","preferred_city": "[city_name]","preferred_state": "[state_name]"}| Get internships the user is eligible for |
-| POST    | `/internships/ranked/{userId}` |-| Get eligible internships ranked by preference scores |
+| POST    | `/internships/filtered/{userId}` |{"preferred_mode": "[preferred_mode]","preferred_city": "[city_name]","preferred_state": "[state_name]"}| Get top 5 internships for the user|
 
 
 The app will be available at: http://localhost:8080
