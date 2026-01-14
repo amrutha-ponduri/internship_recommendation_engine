@@ -54,31 +54,28 @@ public class EligibilityFiltering {
             int highestQualificationRank = user.getHighestQualificationRank();
             double threshold = 0.3;
             String queryStatement = """
-                           SELECT ir.internship_id
-                    FROM internshiprequirements ir
-                    JOIN internship_skill i_s
-                        ON ir.internship_id = i_s.internship_id
-                    LEFT JOIN user_skill u_s
-                        ON i_s.skill_id = u_s.skill_id
-                        AND u_s.user_id = :userId
-                    WHERE
-                        ir.minimum_qualification_rank <= :highestQualificationRank
-                    GROUP BY ir.internship_id
-                    HAVING
-                        COUNT(u_s.skill_id) * 1.0 / COUNT(i_s.skill_id) >= :threshold;
-                    """;
-            Query nativeQuery = entityManager.createNativeQuery(queryStatement, Integer.class);
-            nativeQuery.setParameter("age", userAge);
-            nativeQuery.setParameter("gender", userGender);
-            nativeQuery.setParameter("highestQualificationRank", highestQualificationRank);
-            nativeQuery.setParameter("userId", userId);
-            nativeQuery.setParameter("threshold", threshold);
-            List<Integer> eligibleInternshipIds = nativeQuery.getResultList();
-            if (eligibleInternshipIds.size() < minimumCount) {
-                // System.out.println("Not enough");
-                return new ArrayList<Integer>(internshipRequirementsJpaRepository.findAllEligibleInternshipIds(userAge, userGender, highestQualificationRank));
-            }
-            return new ArrayList<>(eligibleInternshipIds);
+                               SELECT ir.internship_id
+                        FROM internshiprequirements ir
+                        JOIN internship_skill i_s
+                            ON ir.internship_id = i_s.internship_id
+                        LEFT JOIN user_skill u_s
+                            ON i_s.skill_id = u_s.skill_id
+                            AND u_s.user_id = :userId
+                        WHERE
+                            ir.minimum_qualification_rank <= :highestQualificationRank
+                        GROUP BY ir.internship_id
+                        HAVING
+                            COUNT(u_s.skill_id) * 1.0 / COUNT(i_s.skill_id) >= :threshold;
+                        """;
+                Query nativeQuery = entityManager.createNativeQuery(queryStatement, Integer.class);
+                nativeQuery.setParameter("highestQualificationRank", highestQualificationRank);
+                nativeQuery.setParameter("userId", userId);
+                nativeQuery.setParameter("threshold", threshold);
+                List<Integer> eligibleInternshipIds = nativeQuery.getResultList();
+                if (eligibleInternshipIds.size() < minimumCount) {
+                    return new ArrayList<Integer>(internshipRequirementsJpaRepository.findAllEligibleInternshipIds(userAge, userGender, highestQualificationRank));
+                }
+                return new ArrayList<>(eligibleInternshipIds);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "app_user")
-
 public class User {
 
     // personal
@@ -56,6 +55,6 @@ public class User {
     private List<UserSkill> skills;
 
     @Column(name = "csv_ref_id", nullable = true)
-    private int csvRefId;
+    private Integer csvRefId;
 
 }

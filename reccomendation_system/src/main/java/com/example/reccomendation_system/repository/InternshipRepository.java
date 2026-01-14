@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface InternshipRepository {
     ArrayList<InternshipDTO> getInternships();
-    ArrayList<InternshipDTO> getPreferenceScoreRankedInternships(int userId, UserRequirements userRequirements);
+    ArrayList<InternshipDTO> getTopFiveInternships(int userId, UserRequirements userRequirements);
 }

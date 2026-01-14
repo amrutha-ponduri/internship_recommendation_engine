@@ -2,10 +2,12 @@ package com.example.reccomendation_system.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -13,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UserSkill {
 
     @EmbeddedId
-    private UserSkillId userSkillId = new UserSkillId();
+    private UserSkillId userSkillId;
 
     @ManyToOne
     @MapsId("userId")

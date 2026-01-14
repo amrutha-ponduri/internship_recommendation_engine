@@ -59,7 +59,7 @@ public class Mapper {
         for (UserSkill userSkill : skills) {
             skillNames.add(userSkill.getSkill().getSkillName());
         }
-        return new UserInfoDTO(user.getAge(), user.getGender(), user.getExperience(), user.getStream(), user.getSpecialization(), user.getHighestQualificationRank(), user.getDistrict(), user.getState(), skillNames);
+        return new UserInfoDTO(user.getExperience(), skillNames);
     }
 
     public InternshipInfoDTO toInternshipInfoDTO(Internship internship, InternshipRequirements internshipRequirements) {
@@ -71,6 +71,6 @@ public class Mapper {
             skillNames.add(internshipSkill.getSkill().getSkillName());
         }
         String companyName = internship.getCompany().getCompanyName();
-        return new InternshipInfoDTO(String.valueOf(internship.getId()), internship.getBenefits(), internship.getMaxStipend(), internship.getMinStipend(), internship.getField(), internship.getSector(), internship.getTotalCount(), skillNames, internshipRequirements.getMinExperience(), internshipRequirements.getMaxExperience(), companyName, internshipRequirements.getMinimumQualificationRank());
+        return new InternshipInfoDTO(String.valueOf(internship.getId()), internship.getField(), internship.getSector(), skillNames, internshipRequirements.getMinExperience(), internshipRequirements.getMaxExperience());
     }
 }

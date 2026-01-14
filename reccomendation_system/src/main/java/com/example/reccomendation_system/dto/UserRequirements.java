@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRequirements {
 
-    private String role;
-    private String sector;
+//    private String role;
+//    private String sector;
     @JsonProperty("min_stipend")
     private double minStipend;
     @JsonProperty("preferred_mode")
@@ -20,7 +20,9 @@ public class UserRequirements {
     private String preferredCity;
     @JsonProperty("preferred_state")
     private String preferredState;
-    @JsonProperty("employment_type")
-    private String employmentType;
+//    @JsonProperty("employment_type")
+//    private String employmentType;
+    @JsonProperty("preferred_domain")
+    private String preferredDomain;
 
 }

@@ -54,13 +54,18 @@ public interface InternshipJpaRepository extends JpaRepository<Internship, Integ
             MIN(timestampdiff(HOUR, i.postingTime, CURRENT_TIMESTAMP))
             FROM Internship i
             WHERE i.id IN :ids""")
-    List<Object[]> getMaxAndMinPostingTimeDifference(@Param("ids") List<Integer> eligibleInternshipIds);
+    List<Object[]> findMaxAndMinPostingTimeDifference(@Param("ids") List<Integer> eligibleInternshipIds);
 
     @Query("""
             SELECT
             i.id, timestampdiff(HOUR, i.postingTime, CURRENT_TIMESTAMP)
             FROM Internship i
             WHERE i.id IN :ids""")
-    List<Object[]> getAllPostingTimeDifferenceById(@Param("ids") List<Integer> eligibleInternshipIds);
+    List<Object[]> findAllPostingTimeDifferenceById(@Param("ids") List<Integer> eligibleInternshipIds);
+
+    @Query("""
+            SELECT i.field, i.id FROM Internship i
+            WHERE i.id IN :ids""")
+    List<Object[]> findAllFieldsById(@Param("ids") List<Integer> eligibleInternshipIds);
 
 }

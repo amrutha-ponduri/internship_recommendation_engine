@@ -22,8 +22,8 @@ public class PostingTimeScoreStrategy implements ScoreStrategy {
 
     @Override
     public void apply(List<Integer> eligibleInternshipIds, HashMap<Integer, Double> preferenceScores, UserRequirements userRequirements, double weight) {
-        List<Object[]> results = internshipJpaRepository.getMaxAndMinPostingTimeDifference(eligibleInternshipIds);
-        List<Object[]> records = internshipJpaRepository.getAllPostingTimeDifferenceById(eligibleInternshipIds);
+        List<Object[]> results = internshipJpaRepository.findMaxAndMinPostingTimeDifference(eligibleInternshipIds);
+        List<Object[]> records = internshipJpaRepository.findAllPostingTimeDifferenceById(eligibleInternshipIds);
         if (results.isEmpty() || records.isEmpty()) {
             return;
         }

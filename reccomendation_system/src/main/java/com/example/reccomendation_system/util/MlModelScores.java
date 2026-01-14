@@ -1,6 +1,5 @@
-package com.example.reccomendation_system.service;
+package com.example.reccomendation_system.util;
 
-import com.example.reccomendation_system.dto.InternshipDTO;
 import com.example.reccomendation_system.dto.ml_model_dtos.CompleteInfoDTO;
 import com.example.reccomendation_system.dto.ml_model_dtos.InternshipInfoDTO;
 import com.example.reccomendation_system.dto.ml_model_dtos.ScoredInternshipDTO;
@@ -16,14 +15,15 @@ import com.example.reccomendation_system.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.HashMap;
+import java.util.List;
 
-@Service
-public class MlModelService implements MlModelRepository {
+@Component
+public class MlModelScores implements MlModelRepository {
 
     private final RestTemplate restTemplate;
     private final InternshipJpaRepository internshipJpaRepository;
@@ -32,7 +32,7 @@ public class MlModelService implements MlModelRepository {
     private final Mapper mapper;
 
     @Autowired
-    public MlModelService(RestTemplate restTemplate, InternshipJpaRepository internshipJpaRepository, UserJpaRepository userJpaRepository, InternshipRequirementsJpaRepository internshipRequirementsJpaRepository, Mapper mapper) {
+    public MlModelScores(RestTemplate restTemplate, InternshipJpaRepository internshipJpaRepository, UserJpaRepository userJpaRepository, InternshipRequirementsJpaRepository internshipRequirementsJpaRepository, Mapper mapper) {
         this.restTemplate = restTemplate;
         this.internshipJpaRepository = internshipJpaRepository;
         this.userJpaRepository = userJpaRepository;
@@ -41,16 +41,13 @@ public class MlModelService implements MlModelRepository {
     }
 
     @Override
-    public ArrayList<InternshipDTO> getTopFiveInternships(int userId) {
+    public HashMap<Integer, Double> getMLScores(int userId, List<Integer> eligibleInternshipIds) {
 
         User user = userJpaRepository.findById(userId).get();
         UserInfoDTO userInfoDTO = mapper.toUserInfoDTO(user);
 
-        ArrayList<Internship> internshipList = new ArrayList<>(internshipJpaRepository.findAll());
-
-        PriorityQueue<ScoredInternshipDTO> rankedInternships = new PriorityQueue<>((a, b) -> {
-            return Double.compare(b.getProbability(), a.getProbability());
-        });
+        ArrayList<Internship> internshipList = new ArrayList<>(internshipJpaRepository.findAllById(eligibleInternshipIds));
+        HashMap<Integer, Double> mlModel1Scores = new HashMap<>();
 
         for (int i = 0; i < Math.ceil(internshipList.size() / 50.0); i++) {
 
@@ -64,22 +61,13 @@ public class MlModelService implements MlModelRepository {
             }
 
             ArrayList<ScoredInternshipDTO> scoredInternshipDTOS = getScoredInternships(new CompleteInfoDTO(userInfoDTO, internshipInfoDTOs));
-            rankedInternships.addAll(scoredInternshipDTOS);
+            for (ScoredInternshipDTO scoredInternshipDTO : scoredInternshipDTOS) {
+                mlModel1Scores.put(scoredInternshipDTO.getInternshipId(), scoredInternshipDTO.getProbability());
+            }
 
         }
 
-        int count = 0;
-        ArrayList<InternshipDTO> topFiveInternships = new ArrayList<>();
-        while (!rankedInternships.isEmpty() && count < 5) {
-            ScoredInternshipDTO scoredInternshipDTO = rankedInternships.poll();
-            int id = scoredInternshipDTO.getInternshipId();
-            Internship internship = internshipJpaRepository.findById(id).get();
-            InternshipDTO internshipDTO = mapper.toInternshipDTO(internship);
-            topFiveInternships.add(internshipDTO);
-            System.out.println(scoredInternshipDTO.getProbability());
-            count++;
-        }
-        return topFiveInternships;
+        return mlModel1Scores;
     }
 
 
