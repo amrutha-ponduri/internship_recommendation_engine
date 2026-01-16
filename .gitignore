@@ -107,3 +107,4 @@ Thumbs.db
 # dotenv environment files
 .env
 ml_model/internship_portal/recommend_internship/secretkeys.py
+ml_model/internship_portal/recommend_internship/ml/custom_encoders/MultiValueKFoldEncoder.py

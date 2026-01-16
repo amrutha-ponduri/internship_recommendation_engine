@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.model_selection import KFold
 import numpy as np
 
-
+# multi value encoder
 class MultiValueKFoldEncoder(BaseEstimator, TransformerMixin) :
     def __init__(self, n_splits = 5, shuffle = True, random_state = 42, cols = [], smoothing = 0.3, agg = 'mean'):
         self.n_splits = n_splits
