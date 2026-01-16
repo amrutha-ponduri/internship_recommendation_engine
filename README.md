@@ -31,7 +31,7 @@ The system collects user preferences, applies machine learning models (Logistic 
 &nbsp;1.  Clone the repository
 
 ```bash
-git clone https://github.com/ramya1106/internship-recommendation-engine
+git clone https://github.com/amrutha-ponduri/internship-recommendation-engine
 
 ```
 &nbsp;2. Navigate to the internship-recommendation-engine folder
