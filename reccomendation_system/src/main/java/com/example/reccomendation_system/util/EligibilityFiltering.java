@@ -49,8 +49,6 @@ public class EligibilityFiltering {
     public ArrayList<Integer> getEligibleInternshipIds(int userId) {
         try {
             User user = userJpaRepository.findById(userId).get();
-            int userAge = user.getAge();
-            String userGender = user.getGender();
             int highestQualificationRank = user.getHighestQualificationRank();
             double threshold = 0.3;
             String queryStatement = """
@@ -72,7 +70,7 @@ public class EligibilityFiltering {
                 nativeQuery.setParameter("threshold", threshold);
                 List<Integer> eligibleInternshipIds = nativeQuery.getResultList();
                 if (eligibleInternshipIds.size() < minimumCount) {
-                    return new ArrayList<Integer>(internshipRequirementsJpaRepository.findAllEligibleInternshipIds(userAge, userGender, highestQualificationRank));
+                    return new ArrayList<Integer>(internshipRequirementsJpaRepository.findAllEligibleInternshipIds(highestQualificationRank));
                 }
                 return new ArrayList<>(eligibleInternshipIds);
         } catch (Exception e) {
