@@ -10,39 +10,39 @@ import java.util.HashMap;
 import java.util.List;
 
 @Component
-public class AppliedCountScoreStrategy implements ScoreStrategy {
+public class AppliedRatioScoreStrategy implements ScoreStrategy {
 
     private final InternshipJpaRepository internshipJpaRepository;
     private final DefaultScoreStrategy defaultScoreStrategy;
 
     @Autowired
-    public AppliedCountScoreStrategy(InternshipJpaRepository internshipJpaRepository, DefaultScoreStrategy defaultScoreStrategy) {
+    public AppliedRatioScoreStrategy(InternshipJpaRepository internshipJpaRepository, DefaultScoreStrategy defaultScoreStrategy) {
         this.internshipJpaRepository = internshipJpaRepository;
         this.defaultScoreStrategy = defaultScoreStrategy;
     }
 
     @Override
     public void apply(List<Integer> eligibleInternshipIds, HashMap<Integer, Double> preferenceScores, UserRequirements userRequirements, double weight) {
-        List<Object[]> results = internshipJpaRepository.findMaxMinRatiosAndAppliedCounts(eligibleInternshipIds);
+        List<Object[]> results = internshipJpaRepository.findMaxMinRatiosAndTotalCounts(eligibleInternshipIds);
         if (results == null || results.isEmpty()) {
             return;
         }
-        Object[] maxMinRatiosAndAppliedCounts = results.get(0);
-        double maxAppliedRatio = ((Number) maxMinRatiosAndAppliedCounts[0]).doubleValue();
-        double minAppliedRatio = ((Number) maxMinRatiosAndAppliedCounts[1]).doubleValue();
-        int maxAppliedCount = ((Number) maxMinRatiosAndAppliedCounts[2]).intValue();
-        int minAppliedCount = ((Number) maxMinRatiosAndAppliedCounts[3]).intValue();
-        if (maxAppliedRatio == minAppliedRatio && maxAppliedCount == minAppliedCount) {
+        Object[] maxMinRatiosAndTotalCounts = results.get(0);
+        double maxAppliedRatio = ((Number) maxMinRatiosAndTotalCounts[0]).doubleValue();
+        double minAppliedRatio = ((Number) maxMinRatiosAndTotalCounts[1]).doubleValue();
+        int maxTotalCount = ((Number) maxMinRatiosAndTotalCounts[2]).intValue();
+        int minTotalCount = ((Number) maxMinRatiosAndTotalCounts[3]).intValue();
+        if (maxAppliedRatio == minAppliedRatio && maxTotalCount == minTotalCount) {
             defaultScoreStrategy.apply(eligibleInternshipIds, preferenceScores, userRequirements, weight);
             return;
         }
-        List<Object[]> appliedCountAndAppliedRatios = internshipJpaRepository.findAllAppliedCountsAndAppliedRatiosById(eligibleInternshipIds);
+        List<Object[]> appliedCountAndAppliedRatios = internshipJpaRepository.findAllTotalCountsAndAppliedRatiosById(eligibleInternshipIds);
         HashMap<Integer, Double> appliedRatiosMap = new HashMap<>();
-        HashMap<Integer, Integer> appliedCountsMap = new HashMap<>();
+        HashMap<Integer, Integer> totalCountsMap = new HashMap<>();
 
         for (Object[] record : appliedCountAndAppliedRatios) {
             int internshipId = ((Number) record[0]).intValue();
-            appliedCountsMap.put(internshipId, ((Number) record[1]).intValue());
+            totalCountsMap.put(internshipId, ((Number) record[1]).intValue());
             if (record[2] != null) {
                 appliedRatiosMap.put(internshipId, ((Number) record[2]).doubleValue());
             }
@@ -50,9 +50,9 @@ public class AppliedCountScoreStrategy implements ScoreStrategy {
         for (int internshipId : eligibleInternshipIds) {
             double score = 0.0;
             if (!appliedRatiosMap.containsKey(internshipId)) {
-                if (maxAppliedCount != minAppliedCount) {
-                    int currAppliedCount = appliedCountsMap.getOrDefault(internshipId, 0);
-                    score = ((double) maxAppliedCount - currAppliedCount) / (maxAppliedCount - minAppliedCount);
+                if (maxTotalCount != minTotalCount) {
+                    int currTotalCount = totalCountsMap.getOrDefault(internshipId, 0);
+                    score = ((double)currTotalCount - minTotalCount) / (maxTotalCount - minTotalCount);
                 }
             }
             else if (maxAppliedRatio != minAppliedRatio) {
