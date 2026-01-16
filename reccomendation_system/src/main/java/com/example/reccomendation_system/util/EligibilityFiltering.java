@@ -58,11 +58,10 @@ public class EligibilityFiltering {
                         FROM internshiprequirements ir
                         JOIN internship_skill i_s
                             ON ir.internship_id = i_s.internship_id
+                        AND ir.minimum_qualification_rank <= :highestQualificationRank
                         LEFT JOIN user_skill u_s
                             ON i_s.skill_id = u_s.skill_id
                             AND u_s.user_id = :userId
-                        WHERE
-                            ir.minimum_qualification_rank <= :highestQualificationRank
                         GROUP BY ir.internship_id
                         HAVING
                             COUNT(u_s.skill_id) * 1.0 / COUNT(i_s.skill_id) >= :threshold;
