@@ -8,7 +8,7 @@ import com.example.reccomendation_system.repository.InternshipRepository;
 import com.example.reccomendation_system.util.EligibilityFiltering;
 import com.example.reccomendation_system.util.FinalInternshipScoring;
 import com.example.reccomendation_system.util.MlModelScores;
-import com.example.reccomendation_system.util.PreferenceScoreCalculator;
+import com.example.reccomendation_system.util.PreferenceAndPriorityScoreCalculator;
 import com.example.reccomendation_system.dto.UserRequirements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +23,16 @@ public class InternshipService implements InternshipRepository {
 
     private final InternshipJpaRepository internshipJpaRepository;
     private final Mapper mapper;
-    private final PreferenceScoreCalculator preferenceScoreCalculator;
+    private final PreferenceAndPriorityScoreCalculator preferenceAndPriorityScoreCalculator;
     private final EligibilityFiltering eligibilityFiltering;
     private final MlModelScores mlModelScores;
     private final FinalInternshipScoring finalInternshipScoring;
 
     @Autowired
-    public InternshipService(InternshipJpaRepository internshipJpaRepository, Mapper mapper, PreferenceScoreCalculator preferenceScoreCalculator, EligibilityFiltering eligibilityFiltering, MlModelScores mlModelScores, FinalInternshipScoring finalInternshipScoring) {
+    public InternshipService(InternshipJpaRepository internshipJpaRepository, Mapper mapper, PreferenceAndPriorityScoreCalculator preferenceAndPriorityScoreCalculator, EligibilityFiltering eligibilityFiltering, MlModelScores mlModelScores, FinalInternshipScoring finalInternshipScoring) {
         this.internshipJpaRepository = internshipJpaRepository;
         this.mapper = mapper;
-        this.preferenceScoreCalculator = preferenceScoreCalculator;
+        this.preferenceAndPriorityScoreCalculator = preferenceAndPriorityScoreCalculator;
         this.eligibilityFiltering = eligibilityFiltering;
         this.mlModelScores = mlModelScores;
         this.finalInternshipScoring = finalInternshipScoring;
@@ -50,7 +50,7 @@ public class InternshipService implements InternshipRepository {
 
     public ArrayList<InternshipDTO> getTopFiveInternships(int userId, UserRequirements userRequirements) {
         ArrayList<Integer> eligibleInternshipIds = eligibilityFiltering.getEligibleInternshipIds(userId);
-        HashMap<Integer, Double> preferenceScores = preferenceScoreCalculator.getPreferenceScores(eligibleInternshipIds, userRequirements);
+        HashMap<Integer, Double> preferenceScores = preferenceAndPriorityScoreCalculator.getPreferenceScores(eligibleInternshipIds, userRequirements);
         HashMap<Integer, Double> mlModel1Scores = mlModelScores.getMLScores(userId, eligibleInternshipIds);
         HashMap<Integer, Double> finalScores = finalInternshipScoring.getFinalScores(eligibleInternshipIds, preferenceScores, userRequirements, mlModel1Scores);
         PriorityQueue<Integer> finalScoresOrderedQueue = new PriorityQueue<>((a, b) -> {

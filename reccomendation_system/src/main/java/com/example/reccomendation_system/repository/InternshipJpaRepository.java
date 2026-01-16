@@ -25,14 +25,14 @@ public interface InternshipJpaRepository extends JpaRepository<Internship, Integ
                     ELSE (i.appliedCount * 1.0 / i.totalCount)
                     END
                 ),
-            MAX(i.appliedCount),
-            MIN(i.appliedCount)
+            MAX(i.totalCount),
+            MIN(i.totalCount)
             FROM Internship i
             WHERE i.id IN :ids""")
-    List<Object[]> findMaxMinRatiosAndAppliedCounts(@Param("ids") List<Integer> eligibleInternshipIds);
+    List<Object[]> findMaxMinRatiosAndTotalCounts(@Param("ids") List<Integer> eligibleInternshipIds);
 
     @Query("""
-            SELECT i.id, i.appliedCount,
+            SELECT i.id, i.totalCount,
             CASE i.totalCount
                 WHEN 0 THEN NULL
                 ELSE i.appliedCount * 1.0 / i.totalCount
@@ -40,7 +40,7 @@ public interface InternshipJpaRepository extends JpaRepository<Internship, Integ
             FROM Internship i
             WHERE i.id IN :ids
             """)
-    List<Object[]> findAllAppliedCountsAndAppliedRatiosById(@Param("ids") List<Integer> eligibleInternshipIds);
+    List<Object[]> findAllTotalCountsAndAppliedRatiosById(@Param("ids") List<Integer> eligibleInternshipIds);
 
     @Query("""
             SELECT new com.example.reccomendation_system.dto.LocationDTO(i.id, c.cityName,

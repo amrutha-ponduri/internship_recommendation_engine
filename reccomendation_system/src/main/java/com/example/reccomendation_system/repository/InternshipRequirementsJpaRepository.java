@@ -10,18 +10,13 @@ import java.util.List;
 
 @Repository
 public interface InternshipRequirementsJpaRepository extends JpaRepository<InternshipRequirements, Integer> {
+
     @Query("""
        SELECT ir.internship.id
        FROM InternshipRequirements ir
        WHERE ir.minimumQualificationRank <= :userQualificationRank
        """)
-    List<Integer> findAllEligibleInternshipIds(int age, String gender, int userQualificationRank);
-
-    @Query("""
-            SELECT ir.mode FROM InternshipRequirements ir JOIN ir.internship i
-            WHERE i.id = :internshipId
-            """)
-    String findModeByInternshipId(int internshipId);
+    List<Integer> findAllEligibleInternshipIds(int userQualificationRank);
 
     @Query("""
             SELECT ir.internship.id, ir.mode

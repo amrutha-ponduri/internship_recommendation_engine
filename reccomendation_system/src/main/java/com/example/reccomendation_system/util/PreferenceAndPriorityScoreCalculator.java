@@ -14,24 +14,23 @@ import java.util.List;
  */
 
 @Component
-public class PreferenceScoreCalculator {
+public class PreferenceAndPriorityScoreCalculator {
 
     private final LocationPreferenceScoreStrategy locationPreferenceScoreStrategy;
     private final ModePreferenceScoreStrategy modePreferenceScoreStrategy;
     private final PostingTimeScoreStrategy postingTimeScoreStrategy;
-    private final AppliedCountScoreStrategy appliedCountScoreStrategy;
+    private final AppliedRatioScoreStrategy appliedRatioScoreStrategy;
 
     @Autowired
-    public PreferenceScoreCalculator(LocationPreferenceScoreStrategy locationPreferenceScoreStrategy, ModePreferenceScoreStrategy modePreferenceScoreStrategy, PostingTimeScoreStrategy postingTimeScoreStrategy, AppliedCountScoreStrategy appliedCountScoreStrategy) {
+    public PreferenceAndPriorityScoreCalculator(LocationPreferenceScoreStrategy locationPreferenceScoreStrategy, ModePreferenceScoreStrategy modePreferenceScoreStrategy, PostingTimeScoreStrategy postingTimeScoreStrategy, AppliedRatioScoreStrategy appliedRatioScoreStrategy) {
         this.locationPreferenceScoreStrategy = locationPreferenceScoreStrategy;
         this.modePreferenceScoreStrategy = modePreferenceScoreStrategy;
         this.postingTimeScoreStrategy = postingTimeScoreStrategy;
-        this.appliedCountScoreStrategy = appliedCountScoreStrategy;
+        this.appliedRatioScoreStrategy = appliedRatioScoreStrategy;
     }
 
 
     public HashMap<Integer, Double> getPreferenceScores(ArrayList<Integer> eligibleInternshipIds, UserRequirements userRequirements) {
-        // this.eligibleInternshipIds = internshipIds;
         if (eligibleInternshipIds == null || eligibleInternshipIds.isEmpty()) {
             return null;
         }
@@ -46,8 +45,9 @@ public class PreferenceScoreCalculator {
         }
         // calculate scores for applied ratios (applied_count / total_count)
         getAppliedRatioScores(eligibleInternshipIds, preferenceScores, userRequirements);
+
         // calculate preference scores based on location
-        if (userRequirements.getPreferredMode() != null || userRequirements.getPreferredState() != null) {
+        if (userRequirements.getPreferredCity() != null || userRequirements.getPreferredState() != null) {
             getLocationPreferenceScores(eligibleInternshipIds, preferenceScores, userRequirements);
         } else {
             for (int id : eligibleInternshipIds) {
@@ -66,7 +66,7 @@ public class PreferenceScoreCalculator {
 
     // applied ratio scores
     private void getAppliedRatioScores(List<Integer> eligibleInternshipIds, HashMap<Integer, Double> preferenceScores, UserRequirements userRequirements) {
-        appliedCountScoreStrategy.apply(eligibleInternshipIds, preferenceScores, userRequirements, 1);
+        appliedRatioScoreStrategy.apply(eligibleInternshipIds, preferenceScores, userRequirements, 1);
     }
 
     // location preference scores
