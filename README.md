@@ -16,14 +16,13 @@ The system collects user preferences, applies machine learning models (Logistic 
 -  **Advanced Eligibility Filtering** – Skill-based compatibility checks between user skills and internship requirements.
 -  **Database Integration** – Efficient storage and retrieval of user, internship, and recommendation data.  
 -  **Preference-Based Scoring** - Based on applied count, mode preference, distance between preferred location and internship location, posting time.
+-  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score) for improved ranking accuracy.  
+
 ---
 
 ###  Upcoming Features
 -  **Voice Assistance** – Collect preferences through voice input and provide voice-over for internship descriptions.  
--  **Multilingual Support** – Text and voice assistance in multiple languages for better accessibility.  
--  **Feedback-Based Recommendations** – Refined internship suggestions based on user feedback and past choices.  
--  **Additional Preference-Based Scoring** – Based employment type. 
--  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score, feedback score) for improved ranking accuracy.  
+-  **Multilingual Support** – Text and voice assistance in multiple languages for better accessibility.    
 
 ---
 
@@ -32,7 +31,7 @@ The system collects user preferences, applies machine learning models (Logistic 
 &nbsp;1.  Clone the repository
 
 ```bash
-git clone https://github.com/ramya1106/internship-recommendation-engine
+git clone https://github.com/amrutha-ponduri/internship-recommendation-engine
 
 ```
 &nbsp;2. Navigate to the internship-recommendation-engine folder
