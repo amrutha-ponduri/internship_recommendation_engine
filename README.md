@@ -16,7 +16,7 @@ The system collects user preferences, applies machine learning models (Logistic 
 -  **Advanced Eligibility Filtering** – Skill-based compatibility checks between user skills and internship requirements.
 -  **Database Integration** – Efficient storage and retrieval of user, internship, and recommendation data.  
 -  **Preference-Based Scoring** - Based on applied count, mode preference, distance between preferred location and internship location, posting time.
--  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score, feedback score) for improved ranking accuracy.  
+-  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score) for improved ranking accuracy.  
 
 ---
 
