@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 import joblib
@@ -16,7 +16,7 @@ from sklearn.model_selection import cross_val_score
 
 
 BASE_DIR = os.path.dirname(__file__)  # points to recommend_internship/ml
-MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
+PIPELINE_PATH = os.path.join(BASE_DIR, "pipeline1.pkl")
 
 
 
@@ -86,7 +86,7 @@ def train_model():
 
     pipeline.fit(X, y)
 
-    joblib.dump(pipeline, MODEL_PATH)
+    joblib.dump(pipeline, PIPELINE_PATH)
 
     print("Accuracy:", scores.mean())
     return scores.mean()

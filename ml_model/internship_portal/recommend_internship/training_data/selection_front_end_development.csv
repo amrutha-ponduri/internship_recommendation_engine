@@ -1,101 +1,101 @@
 user_skills,user_experience,internship_field,internship_sector,internship_required_skills,is_selected,max_exp_gap,min_exp_gap,is_exp_in_range,csv_ref_id
-"framer,js,html,mysql",1,front end development,Technology,"framer,html,css,js,java,mysql",1,2,0,1,1
-"js,css,mysql,java,html,framer",2,front end development,Technology,"framer,html,css,js,java,mysql",1,1,1,1,2
-"framer,java,html,js,css,mysql",2,front end development,Technology,"framer,html,css,js,java,mysql",1,1,1,1,3
-"java,html,css,framer",4,front end development,Technology,"framer,html,css,js,java,mysql",1,-1,3,1,4
-"java,html,framer",3,front end development,Technology,"framer,html,css,js,java,mysql",0,0,2,1,5
-"java,css,html,framer,js,mysql",0,front end development,Technology,"framer,html,css,js,java,mysql",1,3,-1,1,6
-"mysql,html,framer,css",3,front end development,Technology,"framer,html,css,js,java,mysql",1,0,2,1,7
-"css,js,mysql,java,framer,html",2,front end development,Technology,"framer,html,css,js,java,mysql",1,1,1,1,8
-"mysql,js,framer,css",4,front end development,Technology,"framer,html,css,js,java,mysql",0,-1,3,1,9
-"framer,js,mysql,html,java",4,front end development,Technology,"framer,html,css,js,java,mysql",0,-1,3,1,10
-"jquery,java advanced,js,photoshop,html,css",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,11
-"java basics,js,css",1,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,2,1,1,12
-"html,java advanced,css,photoshop",1,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,2,1,1,13
-"java advanced,css,js,html,java basics",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,14
-"photoshop,jquery,css,java basics,html,java advanced,js",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,15
-"css,html",2,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,1,2,1,16
-"html,java basics,jquery,photoshop,css,js",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,17
-"js,html,java basics",4,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,-1,4,1,18
-"jquery,java advanced,js",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,3,0,1,19
-"jquery,java advanced,java basics,photoshop,html",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,3,0,1,20
-"backend,node,git",1,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,0,1,1,21
-"git,html,node,css,frontend",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,22
-"node,git,js,github,frontend,css",1,front end development,Technology,"css,backend,frontend,git,github,html,js,node",0,0,1,1,23
-"html,git,js,backend,css",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,24
-"github,node",1,front end development,Technology,"css,backend,frontend,git,github,html,js,node",0,0,1,1,25
-"backend,js,html,css,github,frontend,git",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,26
-"frontend,git,html,github,css",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",0,1,0,1,27
-"git,backend,js",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",0,-1,2,1,28
-"css,github,js,node,git,frontend,backend",1,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,0,1,1,29
-"node,git,html,backend,github,frontend,css,js",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,30
-"css,frontend",1,front end development,Technology,"html,css,js,frontend,mysql",0,1,0,1,31
-"js,html,css",1,front end development,Technology,"html,css,js,frontend,mysql",1,1,0,1,32
-"css,frontend,js,html",3,front end development,Technology,"html,css,js,frontend,mysql",1,-1,2,1,33
-"frontend,html,mysql,js",3,front end development,Technology,"html,css,js,frontend,mysql",0,-1,2,1,34
-"js,html",3,front end development,Technology,"html,css,js,frontend,mysql",1,-1,2,1,35
-"frontend,css,html,js",2,front end development,Technology,"html,css,js,frontend,mysql",1,0,1,1,36
-"frontend,css,js,html",0,front end development,Technology,"html,css,js,frontend,mysql",1,2,-1,1,37
-"css,html",2,front end development,Technology,"html,css,js,frontend,mysql",0,0,1,1,38
-"mysql,html,frontend,css",0,front end development,Technology,"html,css,js,frontend,mysql",0,2,-1,1,39
-"mysql,js,css,html",0,front end development,Technology,"html,css,js,frontend,mysql",1,2,-1,1,40
-"github,html,vue,git,angular,css",3,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,1,3,1,41
-"react,html,vue,git,js,css,angular",0,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,4,0,1,42
-"html,angular,css,js",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,2,2,1,43
-"git,react,css,html,github,angular,vue,js",5,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,-1,5,1,44
-"angular,html,css",4,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,0,4,1,45
-"angular,html,vue",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,2,2,1,46
-"css,html,git,react,github",1,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,3,1,1,47
-"js,angular,css,html,git,github,vue,react",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,2,2,1,48
-"angular,html,git,js,react,css,vue",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,2,2,1,49
-"html,react,js,angular,github,vue,css",3,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,1,3,1,50
-"css,ui/ux,html,figma,js",0,front end development,Technology,"html,css,js,figma,ui/ux",1,1,0,1,51
-"js,html,css,figma",2,front end development,Technology,"html,css,js,figma,ui/ux",1,-1,2,1,52
-"figma,ui/ux,css,js,html",2,front end development,Technology,"html,css,js,figma,ui/ux",1,-1,2,1,53
-"html,css,js",0,front end development,Technology,"html,css,js,figma,ui/ux",0,1,0,1,54
-"figma,js",0,front end development,Technology,"html,css,js,figma,ui/ux",1,1,0,1,55
-"ui/ux,html,figma",0,front end development,Technology,"html,css,js,figma,ui/ux",0,1,0,1,56
-"figma,css,ui/ux",1,front end development,Technology,"html,css,js,figma,ui/ux",0,0,1,1,57
-"html,js,ui/ux,css,figma",0,front end development,Technology,"html,css,js,figma,ui/ux",1,1,0,1,58
-"html,figma,css,ui/ux,js",2,front end development,Technology,"html,css,js,figma,ui/ux",1,-1,2,1,59
-"js,css,ui/ux",1,front end development,Technology,"html,css,js,figma,ui/ux",1,0,1,1,60
-"typescript,css,html",1,front end development,Technology,"css,typescript,js,html,react",0,1,1,1,61
-"js,typescript",1,front end development,Technology,"css,typescript,js,html,react",0,1,1,1,62
-"css,react,html,js",2,front end development,Technology,"css,typescript,js,html,react",1,0,2,1,63
-"html,js",3,front end development,Technology,"css,typescript,js,html,react",0,-1,3,1,64
-"react,html,css",2,front end development,Technology,"css,typescript,js,html,react",0,0,2,1,65
-"js,react,css,typescript",3,front end development,Technology,"css,typescript,js,html,react",1,-1,3,1,66
-"react,html,typescript,css",3,front end development,Technology,"css,typescript,js,html,react",0,-1,3,1,67
-"html,typescript",0,front end development,Technology,"css,typescript,js,html,react",0,2,0,1,68
-"js,typescript,react,css,html",2,front end development,Technology,"css,typescript,js,html,react",1,0,2,1,69
-"html,css,typescript",0,front end development,Technology,"css,typescript,js,html,react",0,2,0,1,70
-"react,php,next",4,front end development,Technology,"html,css,js,jquery,php,react,next",0,1,2,1,71
-"js,php",5,front end development,Technology,"html,css,js,jquery,php,react,next",0,0,3,1,72
-"jquery,html",1,front end development,Technology,"html,css,js,jquery,php,react,next",0,4,-1,1,73
-"html,js,jquery,react,next,php,css",5,front end development,Technology,"html,css,js,jquery,php,react,next",1,0,3,1,74
-"jquery,react,next,css,php",2,front end development,Technology,"html,css,js,jquery,php,react,next",0,3,0,1,75
-"css,react,next,html",6,front end development,Technology,"html,css,js,jquery,php,react,next",0,-1,4,1,76
-"php,react",3,front end development,Technology,"html,css,js,jquery,php,react,next",0,2,1,1,77
-"jquery,react,php,css,js,html",2,front end development,Technology,"html,css,js,jquery,php,react,next",1,3,0,1,78
-"jquery,html",1,front end development,Technology,"html,css,js,jquery,php,react,next",0,4,-1,1,79
-"php,react,jquery,css",1,front end development,Technology,"html,css,js,jquery,php,react,next",0,4,-1,1,80
-"angular,css,react,html,responsive web design,js",2,front end development,Technology,"html,css,js,react,responsive web design,angular",1,0,2,1,81
-"js,react,angular",1,front end development,Technology,"html,css,js,react,responsive web design,angular",0,1,1,1,82
-"responsive web design,html,react,angular,js,css",1,front end development,Technology,"html,css,js,react,responsive web design,angular",1,1,1,1,83
-"html,react,js,responsive web design",1,front end development,Technology,"html,css,js,react,responsive web design,angular",0,1,1,1,84
-"js,responsive web design",0,front end development,Technology,"html,css,js,react,responsive web design,angular",1,2,0,1,85
-"responsive web design,react,angular,js",3,front end development,Technology,"html,css,js,react,responsive web design,angular",0,-1,3,1,86
-"js,angular,html,css,react,responsive web design",1,front end development,Technology,"html,css,js,react,responsive web design,angular",1,1,1,1,87
-"html,js,angular,responsive web design",0,front end development,Technology,"html,css,js,react,responsive web design,angular",0,2,0,1,88
-"css,responsive web design,js,react,angular,html",2,front end development,Technology,"html,css,js,react,responsive web design,angular",1,0,2,1,89
-"html,css,js,react,responsive web design,angular",2,front end development,Technology,"html,css,js,react,responsive web design,angular",1,0,2,1,90
-"css,lovable,html",5,front end development,Technology,"lovable,html,css,js,react",0,1,4,1,91
-"html,react,css,lovable,js",3,front end development,Technology,"lovable,html,css,js,react",1,3,2,1,92
-"lovable,css,js",2,front end development,Technology,"lovable,html,css,js,react",0,4,1,1,93
-"react,html,js,lovable,css",4,front end development,Technology,"lovable,html,css,js,react",1,2,3,1,94
-"react,lovable,js,html",4,front end development,Technology,"lovable,html,css,js,react",0,2,3,1,95
-"lovable,js,react",4,front end development,Technology,"lovable,html,css,js,react",1,2,3,1,96
-"js,lovable,html,css",2,front end development,Technology,"lovable,html,css,js,react",1,4,1,1,97
-"html,js,lovable,css",2,front end development,Technology,"lovable,html,css,js,react",1,4,1,1,98
-"lovable,react,js",2,front end development,Technology,"lovable,html,css,js,react",0,4,1,1,99
-"css,js,html,lovable,react",1,front end development,Technology,"lovable,html,css,js,react",1,5,0,1,100
+"java,mysql,js,framer,css",0,front end development,Technology,"framer,html,css,js,java,mysql",1,3,-1,1,1
+"framer,mysql,js",1,front end development,Technology,"framer,html,css,js,java,mysql",1,2,0,1,2
+"java,html,css,js,mysql",3,front end development,Technology,"framer,html,css,js,java,mysql",1,0,2,1,3
+"html,css,js",3,front end development,Technology,"framer,html,css,js,java,mysql",1,0,2,1,4
+"mysql,html,js,framer,css",3,front end development,Technology,"framer,html,css,js,java,mysql",1,0,2,1,5
+"mysql,css,js,framer,java",2,front end development,Technology,"framer,html,css,js,java,mysql",1,1,1,1,6
+"css,java",2,front end development,Technology,"framer,html,css,js,java,mysql",0,1,1,1,7
+"java,mysql,html",4,front end development,Technology,"framer,html,css,js,java,mysql",0,-1,3,1,8
+"java,css,framer,mysql,js,html",4,front end development,Technology,"framer,html,css,js,java,mysql",1,-1,3,1,9
+"java,html",3,front end development,Technology,"framer,html,css,js,java,mysql",1,0,2,1,10
+"css,js,java basics,html,java advanced,jquery",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,11
+"photoshop,html,java basics,js",3,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,0,3,1,12
+"css,java advanced,js,jquery,html",1,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,2,1,1,13
+"jquery,java advanced,photoshop",4,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,-1,4,1,14
+"java basics,java advanced,css,html,photoshop",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,15
+"java basics,photoshop",4,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,-1,4,1,16
+"java basics,js,html",4,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,-1,4,1,17
+"photoshop,java advanced,js",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",0,3,0,1,18
+"js,css",0,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,3,0,1,19
+"js,css,jquery,html",2,front end development,Technology,"html,css,js,jquery,photoshop,java basics,java advanced",1,1,2,1,20
+"node,github,backend,js,git,html",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,21
+"backend,git,js,css,frontend,html,node",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,22
+"frontend,html,node,js,css,backend",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,23
+"git,html,css,node,backend,frontend",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,24
+"backend,github,css,node,js,frontend,git,html",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,25
+"git,backend,github,js,html,frontend",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",0,-1,2,1,26
+"git,css,html,node,js,backend,github",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,27
+"frontend,html,node,git,js",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,28
+"frontend,js,node,html",0,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,1,0,1,29
+"html,css,github,js,node,git",2,front end development,Technology,"css,backend,frontend,git,github,html,js,node",1,-1,2,1,30
+"js,css,frontend",1,front end development,Technology,"html,css,js,frontend,mysql",1,1,0,1,31
+"css,mysql,js,html,frontend",2,front end development,Technology,"html,css,js,frontend,mysql",1,0,1,1,32
+"frontend,js,mysql,html",1,front end development,Technology,"html,css,js,frontend,mysql",1,1,0,1,33
+"frontend,mysql",2,front end development,Technology,"html,css,js,frontend,mysql",0,0,1,1,34
+"html,js,css,frontend,mysql",1,front end development,Technology,"html,css,js,frontend,mysql",1,1,0,1,35
+"mysql,js,html",3,front end development,Technology,"html,css,js,frontend,mysql",1,-1,2,1,36
+"mysql,frontend,css,js,html",2,front end development,Technology,"html,css,js,frontend,mysql",1,0,1,1,37
+"js,html,frontend",1,front end development,Technology,"html,css,js,frontend,mysql",1,1,0,1,38
+"html,css,mysql,js,frontend",3,front end development,Technology,"html,css,js,frontend,mysql",1,-1,2,1,39
+"frontend,html",3,front end development,Technology,"html,css,js,frontend,mysql",0,-1,2,1,40
+"angular,html,react",4,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,0,4,1,41
+"react,vue,html",4,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,0,4,1,42
+"css,angular,git,vue,github",5,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,-1,5,1,43
+"github,git,html,js",0,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,4,0,1,44
+"angular,github,react,js,git,vue,css,html",4,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,0,4,1,45
+"git,github",3,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,1,3,1,46
+"react,git,html,js,angular",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",1,2,2,1,47
+"html,git",0,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,4,0,1,48
+"vue,css,angular,github,html",2,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,2,2,1,49
+"css,github,html,vue,angular,git",4,front end development,Technology,"html,css,js,react,vue,angular,git,github",0,0,4,1,50
+"css,html",1,front end development,Technology,"html,css,js,figma,ui/ux",1,0,1,1,51
+"html,ui/ux,css,figma,js",1,front end development,Technology,"html,css,js,figma,ui/ux",1,0,1,1,52
+"ui/ux,html,js",2,front end development,Technology,"html,css,js,figma,ui/ux",0,-1,2,1,53
+"figma,css,ui/ux",2,front end development,Technology,"html,css,js,figma,ui/ux",0,-1,2,1,54
+"js,ui/ux,html,figma",1,front end development,Technology,"html,css,js,figma,ui/ux",1,0,1,1,55
+"css,js",0,front end development,Technology,"html,css,js,figma,ui/ux",1,1,0,1,56
+"js,ui/ux",2,front end development,Technology,"html,css,js,figma,ui/ux",0,-1,2,1,57
+"ui/ux,css,js",1,front end development,Technology,"html,css,js,figma,ui/ux",1,0,1,1,58
+"ui/ux,html,figma,css",2,front end development,Technology,"html,css,js,figma,ui/ux",1,-1,2,1,59
+"ui/ux,html,figma,css",2,front end development,Technology,"html,css,js,figma,ui/ux",1,-1,2,1,60
+"js,css,react",1,front end development,Technology,"css,typescript,js,html,react",1,1,1,1,61
+"css,react",2,front end development,Technology,"css,typescript,js,html,react",1,0,2,1,62
+"typescript,html,react,css",1,front end development,Technology,"css,typescript,js,html,react",1,1,1,1,63
+"typescript,js",3,front end development,Technology,"css,typescript,js,html,react",0,-1,3,1,64
+"typescript,html,react",0,front end development,Technology,"css,typescript,js,html,react",1,2,0,1,65
+"js,typescript,react",2,front end development,Technology,"css,typescript,js,html,react",0,0,2,1,66
+"js,css,html,typescript",0,front end development,Technology,"css,typescript,js,html,react",1,2,0,1,67
+"react,css,js,typescript",0,front end development,Technology,"css,typescript,js,html,react",1,2,0,1,68
+"typescript,html,css",2,front end development,Technology,"css,typescript,js,html,react",0,0,2,1,69
+"react,typescript",2,front end development,Technology,"css,typescript,js,html,react",0,0,2,1,70
+"css,html,js,php,react,next,jquery",0,front end development,Technology,"html,css,js,jquery,php,react,next",1,5,-2,0,71
+"js,php,css,react",4,front end development,Technology,"html,css,js,jquery,php,react,next",1,1,2,1,72
+"next,js,php,react",2,front end development,Technology,"html,css,js,jquery,php,react,next",0,3,0,1,73
+"html,php,css,js,react,jquery",5,front end development,Technology,"html,css,js,jquery,php,react,next",1,0,3,1,74
+"css,react,html",6,front end development,Technology,"html,css,js,jquery,php,react,next",1,-1,4,1,75
+"react,css",1,front end development,Technology,"html,css,js,jquery,php,react,next",1,4,-1,1,76
+"jquery,js,html,react,next",0,front end development,Technology,"html,css,js,jquery,php,react,next",1,5,-2,0,77
+"next,css,js,html,jquery,react",4,front end development,Technology,"html,css,js,jquery,php,react,next",1,1,2,1,78
+"react,html,css",4,front end development,Technology,"html,css,js,jquery,php,react,next",1,1,2,1,79
+"next,html,jquery,react,css,js,php",0,front end development,Technology,"html,css,js,jquery,php,react,next",1,5,-2,0,80
+"responsive web design,react",2,front end development,Technology,"html,css,js,react,responsive web design,angular",0,0,2,1,81
+"angular,css,react",2,front end development,Technology,"html,css,js,react,responsive web design,angular",0,0,2,1,82
+"responsive web design,js,css,angular",0,front end development,Technology,"html,css,js,react,responsive web design,angular",1,2,0,1,83
+"responsive web design,react,js",3,front end development,Technology,"html,css,js,react,responsive web design,angular",1,-1,3,1,84
+"js,angular,responsive web design,html,react,css",3,front end development,Technology,"html,css,js,react,responsive web design,angular",1,-1,3,1,85
+"js,html,angular,react,css",3,front end development,Technology,"html,css,js,react,responsive web design,angular",1,-1,3,1,86
+"angular,css",2,front end development,Technology,"html,css,js,react,responsive web design,angular",0,0,2,1,87
+"js,html,react,angular,css,responsive web design",2,front end development,Technology,"html,css,js,react,responsive web design,angular",1,0,2,1,88
+"responsive web design,html,css,angular,react,js",0,front end development,Technology,"html,css,js,react,responsive web design,angular",1,2,0,1,89
+"js,responsive web design,css,html,react,angular",3,front end development,Technology,"html,css,js,react,responsive web design,angular",1,-1,3,1,90
+"react,html,css,js,lovable",6,front end development,Technology,"lovable,html,css,js,react",1,0,5,1,91
+"html,css,js,lovable",4,front end development,Technology,"lovable,html,css,js,react",1,2,3,1,92
+"js,css,html,react,lovable",1,front end development,Technology,"lovable,html,css,js,react",1,5,0,1,93
+"lovable,js,css",4,front end development,Technology,"lovable,html,css,js,react",1,2,3,1,94
+"react,css,js,lovable",6,front end development,Technology,"lovable,html,css,js,react",1,0,5,1,95
+"lovable,react,js",2,front end development,Technology,"lovable,html,css,js,react",1,4,1,1,96
+"lovable,react,html",7,front end development,Technology,"lovable,html,css,js,react",1,-1,6,1,97
+"lovable,js,css,react,html",3,front end development,Technology,"lovable,html,css,js,react",1,3,2,1,98
+"html,react",5,front end development,Technology,"lovable,html,css,js,react",0,1,4,1,99
+"css,js,react",2,front end development,Technology,"lovable,html,css,js,react",1,4,1,1,100

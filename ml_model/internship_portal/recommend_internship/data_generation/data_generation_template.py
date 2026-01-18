@@ -10,6 +10,8 @@ from ..secretkeys import SecretKeys
 
 class DataGenerationTemplate :
 
+    BASE_PROB = 0.15
+
     def __init__(self, internships, additional_skills, companies, specializations, specialization_weights, stream, category = "") :
         
         self.internships = internships
@@ -163,7 +165,7 @@ class DataGenerationTemplate :
                 for skill in user_skills :
                     user_skill_record = {}
                     user_skill_record["user_id"] = j
-                    user_skill_record["skill_id"] = self.skill_id[self.skill_id_map[skill]]
+                    user_skill_record["skill_id"] = self.skill_id[skill]
                     user_skill_data.append(user_skill_record)
 
                 user_record['experience'] = random.randint(0, internship['max_experience'] + 5)
@@ -229,7 +231,7 @@ class DataGenerationTemplate :
                 for skill in internship["required"] :
                     internship_skill = {}
                     internship_skill["internship_id"] = j
-                    internship_skill["skill_id"] = self.skill_id[self.skill_id_map[skill]] 
+                    internship_skill["skill_id"] = self.skill_id[skill] 
                     internship_skill_data.append(internship_skill)
 
                 total_count = random.randint(5, 31)
@@ -280,7 +282,7 @@ class DataGenerationTemplate :
 
         self.write_records(skills_file, skill_records)
         
-    def generate_selection_records(self, start) :
+    def generate_selection_records(self, SKILL_WEIGHT, EXPERIENCE_WEIGHT, start) :
 
         selection_data = []
         training_path = 'D:/internship-recommendation-engine/ml_model/internship_portal/recommend_internship/training_data/' 
@@ -309,13 +311,15 @@ class DataGenerationTemplate :
                 )
 
                 # Selection logic
-                prob = 0.15
-                if self.is_skill_match(set(user_skills_list), set(internship['must_have'])):
-                    prob += 0.45
+                # High weight for skill match
+                # Very minimal weight for experience (since its an internship)
+                prob = self.BASE_PROB
+                skill_match_score = self.is_skill_match(set(user_skills_list), set(internship['must_have']))
+                prob += SKILL_WEIGHT * skill_match_score
                 if selection_record['is_exp_in_range']:
-                    prob += 0.25
+                    prob += EXPERIENCE_WEIGHT
 
-                if prob == 0.85 :
+                if prob >= 0.80 :
                     selection_record['is_selected'] = 1
                 elif prob >= 0.60 :
                     selection_weights = [10, 2]
@@ -369,23 +373,24 @@ class DataGenerationTemplate :
             database = SecretKeys.mysql_database_name
         )
         self.skill_id = {}
-        self.skill_id_map = {}
         skill_set = set()
 
         cursor = conn.cursor()
-        cursor.execute('SELECT id, csv_ref_id, skill_name FROM skills')
+        cursor.execute('SELECT id, skill_name FROM skills')
         rows = cursor.fetchall()
+        self.max_id = 0
         for row in rows :
             self.skill_id[row[1]] = row[0]
-            self.skill_id_map[row[2]] = row[1]
-            skill_set.add(row[2])
+            # self.skill_id_map[row[2]] = row[1]
+            self.max_id = max(int(row[0]), self.max_id)
+            skill_set.add(row[1])
 
         cursor.close()
         conn.close()
         return skill_set
     
     def fit_skill_set(self, skill_set) :
-        i = len(skill_set) + 1
+        i = self.max_id + 1
         skill_records = []
 
         for internship in self.internships :
@@ -406,7 +411,9 @@ class DataGenerationTemplate :
         return random.sample(required_skills, k)
     
     def is_skill_match(self, user_skills, required_skills) :
-        return required_skills.issubset(user_skills)
+        if required_skills :
+            return len(required_skills.intersection(user_skills)) / len(required_skills)
+        return 0.0
 
     def get_random_date(self, date1, date2) :
         gap = (date2 - date1).days

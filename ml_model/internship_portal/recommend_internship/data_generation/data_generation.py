@@ -2,6 +2,15 @@ from .data_generation_template import DataGenerationTemplate
 
 # Running this file : python -m internship_portal.recommend_internship.data_generation.data_generation
 
+# Pipeline order:
+# 1. Generate & insert skills
+# 2. Re-fetch skills from DB
+# 3. Generate internships
+# 4. Generate users
+
+SKILL_WEIGHT = 0.55
+EXPERIENCE_WEIGHT = 0.25
+
 frontend_internships = [
     {
         "id": 1,
@@ -227,8 +236,8 @@ frontend_titles = [
 dg_frontend = DataGenerationTemplate(frontend_internships, additional_skills=[], companies=cs_companies, specializations=cs_specializations, specialization_weights=frontend_specializations_weights, stream='CS', category='front_end_development')
 # dg_frontend.generate_skill_records()
 # dg_frontend.generate_internship_records(titles=frontend_titles, start=1)
-dg_frontend.generate_user_records(start=1)
-# dg_frontend.generate_selection_records(start=1)
+# dg_frontend.generate_user_records(start=1)
+dg_frontend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=1)
 
 java_backend_internships = [
   {
@@ -318,8 +327,8 @@ java_backend_titles = [
 dg_java_backend = DataGenerationTemplate(internships=java_backend_internships, additional_skills=[], companies=cs_companies, specializations=cs_specializations, specialization_weights=backend_specialization_weights, stream='CS', category='java_back_end_development')
 # dg_java_backend.generate_skill_records()
 # dg_java_backend.generate_internship_records(titles=java_backend_titles, start=21)
-dg_java_backend.generate_user_records(start=41)
-# dg_java_backend.generate_selection_records(start=101)
+# dg_java_backend.generate_user_records(start=41)
+dg_java_backend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=101)
 
 java_full_stack_internships = [
   {
@@ -409,8 +418,8 @@ java_full_stack_additional_skills = ['Python', 'Posgres', 'Docker']
 dg_java_full_stack = DataGenerationTemplate(internships=java_full_stack_internships, additional_skills=[], companies=cs_companies, specializations=cs_specializations, specialization_weights=java_full_stack_specialization_weights, stream = 'CS', category = 'java_full_stack_development')
 # dg_java_full_stack.generate_skill_records()
 # dg_java_full_stack.generate_internship_records(titles=java_full_stack_titles, start=41)
-dg_java_full_stack.generate_user_records(start=81)
-# dg_java_full_stack.generate_selection_records(start = 201)
+# dg_java_full_stack.generate_user_records(start=81)
+dg_java_full_stack.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start = 201)
 
 specialized_java_internships = [
   {
@@ -498,7 +507,7 @@ specialized_java_internships_weights = [1, 1, 1, 6, 3]
 dg_specialized_internships = DataGenerationTemplate(internships=specialized_java_internships, additional_skills = [], companies=cs_companies, specializations = cs_specializations, specialization_weights=specialized_java_internships_weights, stream='CS', category='java_specialized_internships')
 # dg_specialized_internships.generate_skill_records()
 # dg_specialized_internships.generate_internship_records(titles=specialized_java_internship_titles, start=61)
-dg_specialized_internships.generate_user_records(start=121)
-# dg_specialized_internships.generate_selection_records(start=301)
+# dg_specialized_internships.generate_user_records(start=121)
+dg_specialized_internships.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=301)
 
 
