@@ -16,7 +16,8 @@ The system collects user preferences, applies machine learning models (Logistic 
 -  **Advanced Eligibility Filtering** – Skill-based compatibility checks between user skills and internship requirements.
 -  **Database Integration** – Efficient storage and retrieval of user, internship, and recommendation data.  
 -  **Preference-Based Scoring** - Based on applied count, mode preference, distance between preferred location and internship location, posting time.
--  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score) for improved ranking accuracy.  
+-  **Score Normalization & Hybrid Ranking** – Normalize and combine multiple factors (preference score, ML regression score) for improved ranking accuracy.
+-  **LLM Scoring for selection chances** - Uses Gemini to evaluate Projects and experience of the candidate for determining the selection chances of the candidate(Recruiter perspective evaluation) 
 
 ---
 
@@ -168,6 +169,31 @@ Update it like this:
 
     mvn spring-boot:run "-Dspring-boot.run.profiles=local"
 
+---
+## Setting up Gemini API Key
+
+Follow these steps to generate and configure your Gemini API key in your Spring Boot project.
+
+### 1. Create a Gemini API Key
+
+1. Go to the Google AI Studio:
+    https://aistudio.google.com/
+
+2. Sign in with your Google account.
+
+3. Click on **"Get API key"** (top right corner).
+
+4. Select **"Create API key"**.
+
+5. Copy the generated API key.
+
+### 2. Add API Key to `application.properties`
+
+Open your `src/main/resources/application.properties` file and add:
+
+```properties
+gemini.api.key=YOUR_API_KEY_HERE
+```
 ---
 
 ### API Endpoints  
