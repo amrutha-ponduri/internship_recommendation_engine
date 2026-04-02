@@ -199,11 +199,10 @@ gemini.api.key=YOUR_API_KEY_HERE
 ### API Endpoints  
 
 | Method | Endpoint | Request Body | Description |
-|--------|-----------|-----------|-------------|
-| GET    | `/users/{userId}` |-| Fetch user details |
-| GET    | `/internship/details/{internshipId}` |-| Internship details |
-| POST    | `/internships/filtered/{userId}` |{"preferred_mode": "[preferred_mode]","preferred_city": "[city_name]","preferred_state": "[state_name]"}| Get top 5 internships for the user|
-
+|--------|-----------|--------------|-------------|
+| GET | `/users/{userId}` | - | Fetch user details |
+| GET | `/internship/details/{internshipId}` | - | Internship details |
+| POST | `/internships/filtered/{userId}` | <details><summary>View Request Body</summary><pre>{ "user_requirements": { "min_stipend": {min_stipend}, "preferred_mode": {mode}, "preferred_city": {city}, "preferred_state": {state}, "preferred_domain": {domain} }, "project_experience_description": { "project_description": {project description}, "experience_description": {experience description}} |
 
 The app will be available at: http://localhost:8080
 
