@@ -38,8 +38,8 @@ public class EligibilityFiltering {
     public ArrayList<InternshipDTO> getEligibleInternships(int userId) {
         ArrayList<Integer> internshipIdsList = getEligibleInternshipIds(userId);
         ArrayList<InternshipDTO> internshipDTOs = new ArrayList<>();
-        for (int internshipId : internshipIdsList) {
-            Internship internship = internshipJpaRepository.findById(internshipId).get();
+        ArrayList<Internship> internshipsList = new ArrayList<>(internshipJpaRepository.findAllById(internshipIdsList));
+        for (Internship internship : internshipsList) {
             InternshipDTO internshipDTO = mapper.toInternshipDTO(internship);
             internshipDTOs.add(internshipDTO);
         }
@@ -48,7 +48,8 @@ public class EligibilityFiltering {
 
     public ArrayList<Integer> getEligibleInternshipIds(int userId) {
         try {
-            User user = userJpaRepository.findById(userId).get();
+            User user = userJpaRepository.findById(userId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
             int highestQualificationRank = user.getHighestQualificationRank();
             double threshold = 0.3;
             String queryStatement = """

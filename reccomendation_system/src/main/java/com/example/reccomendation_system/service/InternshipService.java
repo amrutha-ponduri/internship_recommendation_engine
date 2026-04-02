@@ -1,41 +1,33 @@
 package com.example.reccomendation_system.service;
 
 import com.example.reccomendation_system.dto.InternshipDTO;
+import com.example.reccomendation_system.dto.ProjectExperienceDescription;
+import com.example.reccomendation_system.dto.UserRequirements;
+import com.example.reccomendation_system.dto.UserRequirementsAndProjectExperienceDescription;
 import com.example.reccomendation_system.mapper.Mapper;
 import com.example.reccomendation_system.model.Internship;
 import com.example.reccomendation_system.repository.InternshipJpaRepository;
 import com.example.reccomendation_system.repository.InternshipRepository;
-import com.example.reccomendation_system.util.EligibilityFiltering;
-import com.example.reccomendation_system.util.FinalInternshipScoring;
-import com.example.reccomendation_system.util.MlModelScores;
-import com.example.reccomendation_system.util.PreferenceAndPriorityScoreCalculator;
-import com.example.reccomendation_system.dto.UserRequirements;
+import com.example.reccomendation_system.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 @Service
 public class InternshipService implements InternshipRepository {
 
+    private final ShortlistingAndPreferenceScoring shortlistingAndPreferenceScoring;
     private final InternshipJpaRepository internshipJpaRepository;
     private final Mapper mapper;
-    private final PreferenceAndPriorityScoreCalculator preferenceAndPriorityScoreCalculator;
-    private final EligibilityFiltering eligibilityFiltering;
-    private final MlModelScores mlModelScores;
-    private final FinalInternshipScoring finalInternshipScoring;
+    private final GeminiScoring geminiScoring;
 
     @Autowired
-    public InternshipService(InternshipJpaRepository internshipJpaRepository, Mapper mapper, PreferenceAndPriorityScoreCalculator preferenceAndPriorityScoreCalculator, EligibilityFiltering eligibilityFiltering, MlModelScores mlModelScores, FinalInternshipScoring finalInternshipScoring) {
+    public InternshipService(ShortlistingAndPreferenceScoring shortlistingAndPreferenceScoring, InternshipJpaRepository internshipJpaRepository, Mapper mapper, PreferenceAndPriorityScoreCalculator preferenceAndPriorityScoreCalculator, EligibilityFiltering eligibilityFiltering, MlModelScores mlModelScores, FinalInternshipScoring finalInternshipScoring, GeminiScoring geminiScoring) {
+        this.shortlistingAndPreferenceScoring = shortlistingAndPreferenceScoring;
         this.internshipJpaRepository = internshipJpaRepository;
         this.mapper = mapper;
-        this.preferenceAndPriorityScoreCalculator = preferenceAndPriorityScoreCalculator;
-        this.eligibilityFiltering = eligibilityFiltering;
-        this.mlModelScores = mlModelScores;
-        this.finalInternshipScoring = finalInternshipScoring;
+        this.geminiScoring = geminiScoring;
     }
 
     @Override
@@ -48,23 +40,43 @@ public class InternshipService implements InternshipRepository {
         return internshipDTOS;
     }
 
-    public ArrayList<InternshipDTO> getTopFiveInternships(int userId, UserRequirements userRequirements) {
-        ArrayList<Integer> eligibleInternshipIds = eligibilityFiltering.getEligibleInternshipIds(userId);
-        HashMap<Integer, Double> preferenceScores = preferenceAndPriorityScoreCalculator.getPreferenceScores(eligibleInternshipIds, userRequirements);
-        HashMap<Integer, Double> mlModel1Scores = mlModelScores.getMLScores(userId, eligibleInternshipIds);
-        HashMap<Integer, Double> finalScores = finalInternshipScoring.getFinalScores(eligibleInternshipIds, preferenceScores, userRequirements, mlModel1Scores);
-        PriorityQueue<Integer> finalScoresOrderedQueue = new PriorityQueue<>((a, b) -> {
-            return Double.compare(finalScores.getOrDefault(b, 0.0), finalScores.getOrDefault(a, 0.0));
-        });
-        finalScoresOrderedQueue.addAll(finalScores.keySet());
-        ArrayList<InternshipDTO> rankedInternshipDTOS = new ArrayList<>();
+    @Override
+    public ArrayList<InternshipDTO> getTopFiveInternships(int userId, UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) throws InterruptedException {
+        UserRequirements userRequirements = userRequirementsAndProjectExperienceDescription.getUserRequirements();
+        ProjectExperienceDescription projectExperienceDescription = userRequirementsAndProjectExperienceDescription.getProjectExperienceDescription();
+        if (projectExperienceDescription.getExperienceDescription() == null) {
+            projectExperienceDescription.setExperienceDescription("");
+        }
+        if (projectExperienceDescription.getProjectDescription() == null) {
+            projectExperienceDescription.setProjectDescription("");
+        }
+        HashMap<Integer, Double> topFiveInternshipsShortlistingScores = shortlistingAndPreferenceScoring.getTopFiveInternshipIdsAndScores(userId, userRequirements);
+        ArrayList<Integer> topFiveShortlistedInternships = new ArrayList<>(topFiveInternshipsShortlistingScores.keySet());
+
+        HashMap<Integer, Double> selectionScores = geminiScoring.getGeminiScores(projectExperienceDescription, topFiveShortlistedInternships);
+        HashMap<Integer, Double> copyScores = new HashMap<>(selectionScores);
+
+        if (selectionScores == null || selectionScores.isEmpty()) {
+            return new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(topFiveShortlistedInternships));
+        }
+
+        for (Map.Entry<Integer, Double> entry : copyScores.entrySet()) {
+            if (entry.getValue() == -1.0) {
+                int id = entry.getKey();
+                selectionScores.put(id, topFiveInternshipsShortlistingScores.get(id));
+            }
+        }
+
+        ArrayList<Integer> top5InternshipIds = new ArrayList<>();
+        PriorityQueue<Integer> orderedQueue = new PriorityQueue<>((a, b) -> Double.compare(selectionScores.getOrDefault(b, 0.0), selectionScores.getOrDefault(a, 0.0)));
+        orderedQueue.addAll(selectionScores.keySet());
         int count = 0;
-        while (!finalScoresOrderedQueue.isEmpty() && count < 5) {
-            int id = finalScoresOrderedQueue.poll();
-            InternshipDTO internshipDTO = mapper.toInternshipDTO(internshipJpaRepository.findById(id).get());
-            rankedInternshipDTOS.add(internshipDTO);
+        while (!orderedQueue.isEmpty() && count < 5) {
+            int id = orderedQueue.poll();
+            top5InternshipIds.add(id);
             count++;
         }
-        return rankedInternshipDTOS;
+
+        return new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(top5InternshipIds));
     }
 }

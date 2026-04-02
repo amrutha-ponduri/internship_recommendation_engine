@@ -70,4 +70,8 @@ public class Internship {
 
     @Column(name = "csv_ref_id", nullable = true)
     private int csvRefId;
+
+    // reverse join
+    @OneToOne(mappedBy = "internship")
+    private InternshipRequirements internshipRequirements;
 }

@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 @SpringBootApplication
 public class ReccomendationSystemApplication {
 
-	public static void main(String[] args) throws FileNotFoundException {
-		SpringApplication.run(ReccomendationSystemApplication.class, args);
-	}
+    public static void main(String[] args) throws FileNotFoundException {
+        SpringApplication.run(ReccomendationSystemApplication.class, args);
+    }
 }

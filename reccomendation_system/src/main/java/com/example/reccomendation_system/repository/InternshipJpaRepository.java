@@ -1,5 +1,6 @@
 package com.example.reccomendation_system.repository;
 
+import com.example.reccomendation_system.dto.InternshipDTO;
 import com.example.reccomendation_system.dto.LocationDTO;
 import com.example.reccomendation_system.model.Internship;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface InternshipJpaRepository extends JpaRepository<Internship, Integer> {
 
@@ -68,4 +70,9 @@ public interface InternshipJpaRepository extends JpaRepository<Internship, Integ
             WHERE i.id IN :ids""")
     List<Object[]> findAllFieldsById(@Param("ids") List<Integer> eligibleInternshipIds);
 
+    @Query("""
+            SELECT new com.example.reccomendation_system.dto.InternshipDTO(i.id, i.title, i.company, i.duration, i.postingTime,
+            i.sector, i.description, i.appliedCount, i.totalCount, i.benefits,
+            i.state, i.district) FROM Internship i WHERE i.id IN :ids""")
+    List<InternshipDTO> findAllInternshipsByInternshipIds(@Param("ids") List<Integer> internshipIds);
 }
