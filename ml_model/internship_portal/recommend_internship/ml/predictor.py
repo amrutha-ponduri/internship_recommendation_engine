@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 BASE_DIR = os.path.dirname(__file__)
-MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "pipeline1.pkl")
 pipeline = joblib.load(MODEL_PATH)
 
 def predict_user_for_internships(user_info: dict, internships: list):

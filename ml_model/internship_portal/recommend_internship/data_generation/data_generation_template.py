@@ -372,6 +372,7 @@ class DataGenerationTemplate :
             password = SecretKeys.mysql_password,
             database = SecretKeys.mysql_database_name
         )
+
         self.skill_id = {}
         skill_set = set()
 
@@ -381,7 +382,6 @@ class DataGenerationTemplate :
         self.max_id = 0
         for row in rows :
             self.skill_id[row[1]] = row[0]
-            # self.skill_id_map[row[2]] = row[1]
             self.max_id = max(int(row[0]), self.max_id)
             skill_set.add(row[1])
 

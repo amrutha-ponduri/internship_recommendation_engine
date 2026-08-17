@@ -36,9 +36,6 @@ public class GeminiScoring {
         HashMap<Integer, Double> geminiScores = new HashMap<>();
 
         if (projectExperienceDescription.getExperienceDescription().isEmpty() && projectExperienceDescription.getProjectDescription().isEmpty()) {
-            for (int id : internshipIds) {
-                geminiScores.put(id, 0.0);
-            }
             return geminiScores;
         }
 

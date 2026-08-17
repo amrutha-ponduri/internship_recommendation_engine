@@ -1,7 +1,7 @@
 package com.example.reccomendation_system.repository;
 
-import com.example.reccomendation_system.dto.InternshipDTO;
 import com.example.reccomendation_system.dto.LocationDTO;
+import com.example.reccomendation_system.dto.ScoredInternshipDTO;
 import com.example.reccomendation_system.model.Internship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -71,8 +71,8 @@ public interface InternshipJpaRepository extends JpaRepository<Internship, Integ
     List<Object[]> findAllFieldsById(@Param("ids") List<Integer> eligibleInternshipIds);
 
     @Query("""
-            SELECT new com.example.reccomendation_system.dto.InternshipDTO(i.id, i.title, i.company, i.duration, i.postingTime,
+            SELECT new com.example.reccomendation_system.dto.ScoredInternshipDTO(i.id, i.title, i.company, i.duration, i.postingTime,
             i.sector, i.description, i.appliedCount, i.totalCount, i.benefits,
-            i.state, i.district) FROM Internship i WHERE i.id IN :ids""")
-    List<InternshipDTO> findAllInternshipsByInternshipIds(@Param("ids") List<Integer> internshipIds);
+            i.state, i.district, 0) FROM Internship i WHERE i.id IN :ids""")
+    List<ScoredInternshipDTO> findAllInternshipsByInternshipIds(@Param("ids") List<Integer> internshipIds);
 }

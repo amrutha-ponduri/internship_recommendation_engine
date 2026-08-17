@@ -237,7 +237,7 @@ dg_frontend = DataGenerationTemplate(frontend_internships, additional_skills=[],
 # dg_frontend.generate_skill_records()
 # dg_frontend.generate_internship_records(titles=frontend_titles, start=1)
 # dg_frontend.generate_user_records(start=1)
-dg_frontend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=1)
+# dg_frontend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=1)
 
 java_backend_internships = [
   {
@@ -328,7 +328,7 @@ dg_java_backend = DataGenerationTemplate(internships=java_backend_internships, a
 # dg_java_backend.generate_skill_records()
 # dg_java_backend.generate_internship_records(titles=java_backend_titles, start=21)
 # dg_java_backend.generate_user_records(start=41)
-dg_java_backend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=101)
+# dg_java_backend.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=101)
 
 java_full_stack_internships = [
   {
@@ -419,7 +419,7 @@ dg_java_full_stack = DataGenerationTemplate(internships=java_full_stack_internsh
 # dg_java_full_stack.generate_skill_records()
 # dg_java_full_stack.generate_internship_records(titles=java_full_stack_titles, start=41)
 # dg_java_full_stack.generate_user_records(start=81)
-dg_java_full_stack.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start = 201)
+# dg_java_full_stack.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start = 201)
 
 specialized_java_internships = [
   {
@@ -508,6 +508,6 @@ dg_specialized_internships = DataGenerationTemplate(internships=specialized_java
 # dg_specialized_internships.generate_skill_records()
 # dg_specialized_internships.generate_internship_records(titles=specialized_java_internship_titles, start=61)
 # dg_specialized_internships.generate_user_records(start=121)
-dg_specialized_internships.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=301)
+# dg_specialized_internships.generate_selection_records(SKILL_WEIGHT, EXPERIENCE_WEIGHT, start=301)
 
 

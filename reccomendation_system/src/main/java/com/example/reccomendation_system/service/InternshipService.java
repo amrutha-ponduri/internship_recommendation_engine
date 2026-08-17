@@ -1,9 +1,6 @@
 package com.example.reccomendation_system.service;
 
-import com.example.reccomendation_system.dto.InternshipDTO;
-import com.example.reccomendation_system.dto.ProjectExperienceDescription;
-import com.example.reccomendation_system.dto.UserRequirements;
-import com.example.reccomendation_system.dto.UserRequirementsAndProjectExperienceDescription;
+import com.example.reccomendation_system.dto.*;
 import com.example.reccomendation_system.mapper.Mapper;
 import com.example.reccomendation_system.model.Internship;
 import com.example.reccomendation_system.repository.InternshipJpaRepository;
@@ -41,23 +38,22 @@ public class InternshipService implements InternshipRepository {
     }
 
     @Override
-    public ArrayList<InternshipDTO> getTopFiveInternships(int userId, UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) throws InterruptedException {
+    public ArrayList<ScoredInternshipDTO> getTopFiveInternships(int userId, UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) throws InterruptedException {
         UserRequirements userRequirements = userRequirementsAndProjectExperienceDescription.getUserRequirements();
-        ProjectExperienceDescription projectExperienceDescription = userRequirementsAndProjectExperienceDescription.getProjectExperienceDescription();
-        if (projectExperienceDescription.getExperienceDescription() == null) {
-            projectExperienceDescription.setExperienceDescription("");
-        }
-        if (projectExperienceDescription.getProjectDescription() == null) {
-            projectExperienceDescription.setProjectDescription("");
-        }
-        HashMap<Integer, Double> topFiveInternshipsShortlistingScores = shortlistingAndPreferenceScoring.getTopFiveInternshipIdsAndScores(userId, userRequirements);
+        ProjectExperienceDescription projectExperienceDescription = getProjectExperienceDescription(userRequirementsAndProjectExperienceDescription);
+        Map<Integer, Double> topFiveInternshipsShortlistingScores = shortlistingAndPreferenceScoring.getTopFiveInternshipIdsAndScores(userId, userRequirements);
         ArrayList<Integer> topFiveShortlistedInternships = new ArrayList<>(topFiveInternshipsShortlistingScores.keySet());
 
         HashMap<Integer, Double> selectionScores = geminiScoring.getGeminiScores(projectExperienceDescription, topFiveShortlistedInternships);
         HashMap<Integer, Double> copyScores = new HashMap<>(selectionScores);
 
-        if (selectionScores == null || selectionScores.isEmpty()) {
-            return new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(topFiveShortlistedInternships));
+        if (selectionScores.isEmpty()) {
+            ArrayList<ScoredInternshipDTO> scoredInternshipDTOS = new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(topFiveShortlistedInternships));
+            for (ScoredInternshipDTO scoredInternshipDTO : scoredInternshipDTOS) {
+                scoredInternshipDTO.setScore(topFiveInternshipsShortlistingScores.get(scoredInternshipDTO.getInternshipId()));
+            }
+            Collections.sort(scoredInternshipDTOS, (a, b) -> Double.compare(b.getScore(), a.getScore()));
+            return scoredInternshipDTOS;
         }
 
         for (Map.Entry<Integer, Double> entry : copyScores.entrySet()) {
@@ -77,6 +73,26 @@ public class InternshipService implements InternshipRepository {
             count++;
         }
 
-        return new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(top5InternshipIds));
+        ArrayList<ScoredInternshipDTO> internships = new ArrayList<>(internshipJpaRepository.findAllInternshipsByInternshipIds(top5InternshipIds));
+        for (ScoredInternshipDTO scoredInternshipDTO : internships) {
+            scoredInternshipDTO.setScore(selectionScores.get(scoredInternshipDTO.getInternshipId()));
+        }
+        Collections.sort(internships, (a, b) -> Double.compare(b.getScore(), a.getScore()));
+        return internships;
+    }
+
+    private static ProjectExperienceDescription getProjectExperienceDescription(UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) {
+        ProjectExperienceDescription projectExperienceDescription = userRequirementsAndProjectExperienceDescription.getProjectExperienceDescription();
+        if (projectExperienceDescription == null) {
+            projectExperienceDescription = new ProjectExperienceDescription("", "");
+        } else {
+            if (projectExperienceDescription.getExperienceDescription() == null) {
+                projectExperienceDescription.setExperienceDescription("");
+            }
+            if (projectExperienceDescription.getProjectDescription() == null) {
+                projectExperienceDescription.setProjectDescription("");
+            }
+        }
+        return projectExperienceDescription;
     }
 }

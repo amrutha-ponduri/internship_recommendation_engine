@@ -1,6 +1,7 @@
 package com.example.reccomendation_system.controller;
 
 import com.example.reccomendation_system.dto.InternshipDTO;
+import com.example.reccomendation_system.dto.ScoredInternshipDTO;
 import com.example.reccomendation_system.dto.UserRequirements;
 import com.example.reccomendation_system.dto.UserRequirementsAndProjectExperienceDescription;
 import com.example.reccomendation_system.service.InternshipService;
@@ -26,7 +27,7 @@ public class InternshipController {
     }
 
     @PostMapping("/filtered/{userId}")
-    public ArrayList<InternshipDTO> getTopFiveInternships(@PathVariable("userId") int userId, @RequestBody UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) throws InterruptedException {
+    public ArrayList<ScoredInternshipDTO> getTopFiveInternships(@PathVariable("userId") int userId, @RequestBody UserRequirementsAndProjectExperienceDescription userRequirementsAndProjectExperienceDescription) throws InterruptedException {
         return internshipService.getTopFiveInternships(userId, userRequirementsAndProjectExperienceDescription);
     }
 

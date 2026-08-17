@@ -28,8 +28,8 @@ public class FinalInternshipScoring {
         for (Object[] fieldRecord : fieldRecords) {
             int id = ((Number) fieldRecord[1]).intValue();
             String field = fieldRecord[0].toString();
-            double finalScore = preferenceScores.getOrDefault(id, 0.0) * 0.3 + mlScores.getOrDefault(id, 0.0) * 0.9;
-            if (field != null && field.equals(userRequirements.getPreferredDomain())) {
+            double finalScore = preferenceScores == null ? 0.0 : preferenceScores.getOrDefault(id, 0.0) * 0.3 + mlScores.getOrDefault(id, 0.0) * 0.9;
+            if (field != null && (userRequirements == null || field.equals(userRequirements.getPreferredDomain()))) {
                 finalScore = 2 * finalScore;
             }
             finalScores.put(id, finalScore);

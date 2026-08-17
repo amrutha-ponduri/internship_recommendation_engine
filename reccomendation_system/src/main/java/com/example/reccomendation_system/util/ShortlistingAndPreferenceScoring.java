@@ -5,9 +5,7 @@ import com.example.reccomendation_system.repository.InternshipJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.*;
 
 @Component
 public class ShortlistingAndPreferenceScoring {
@@ -25,7 +23,7 @@ public class ShortlistingAndPreferenceScoring {
         this.finalInternshipScoring = finalInternshipScoring;
     }
 
-    public HashMap<Integer, Double> getTopFiveInternshipIdsAndScores(int userId, UserRequirements userRequirements) {
+    public Map<Integer, Double> getTopFiveInternshipIdsAndScores(int userId, UserRequirements userRequirements) {
         ArrayList<Integer> eligibleInternshipIds = eligibilityFiltering.getEligibleInternshipIds(userId);
         HashMap<Integer, Double> preferenceScores = preferenceAndPriorityScoreCalculator.getPreferenceScores(eligibleInternshipIds, userRequirements);
         HashMap<Integer, Double> mlModel1Scores = mlModelScores.getMLScores(userId, eligibleInternshipIds);
@@ -36,13 +34,16 @@ public class ShortlistingAndPreferenceScoring {
 
         int count = 0, maxCount = 5;
 
-        HashMap<Integer, Double> topFiveInternshipShorlistingScores = new HashMap<>();
+        Map<Integer, Double> topFiveInternshipShortlistingScores = new LinkedHashMap<>();
 
         while (!shortlistingScoresOrderedQueue.isEmpty() && count < maxCount) {
             int id = shortlistingScoresOrderedQueue.poll();
-            topFiveInternshipShorlistingScores.put(id, finalScores.get(id));
+            topFiveInternshipShortlistingScores.put(id, finalScores.get(id));
             count++;
         }
-        return topFiveInternshipShorlistingScores;
+        System.out.println("----------------------------------------");
+        System.out.println("Top five shortlisting scores" + topFiveInternshipShortlistingScores);
+        System.out.println("----------------------------------------");
+        return topFiveInternshipShortlistingScores;
     }
 }

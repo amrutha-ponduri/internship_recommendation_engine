@@ -31,7 +31,7 @@ public class PreferenceAndPriorityScoreCalculator {
 
 
     public HashMap<Integer, Double> getPreferenceScores(ArrayList<Integer> eligibleInternshipIds, UserRequirements userRequirements) {
-        if (eligibleInternshipIds == null || eligibleInternshipIds.isEmpty()) {
+        if (eligibleInternshipIds == null || eligibleInternshipIds.isEmpty() || userRequirements == null) {
             return null;
         }
         HashMap<Integer, Double> preferenceScores = new HashMap<>();
@@ -47,7 +47,7 @@ public class PreferenceAndPriorityScoreCalculator {
         getAppliedRatioScores(eligibleInternshipIds, preferenceScores, userRequirements);
 
         // calculate preference scores based on location
-        if (userRequirements.getPreferredCity() != null || userRequirements.getPreferredState() != null) {
+        if (userRequirements.getPreferredState() != null) {
             getLocationPreferenceScores(eligibleInternshipIds, preferenceScores, userRequirements);
         } else {
             for (int id : eligibleInternshipIds) {
@@ -70,6 +70,7 @@ public class PreferenceAndPriorityScoreCalculator {
     }
 
     // location preference scores
+    // TODO: CHANGED LOCATION WEIGHT
     private void getLocationPreferenceScores(List<Integer> eligibleInternshipIds, HashMap<Integer, Double> preferenceScores, UserRequirements userRequirements) {
         locationPreferenceScoreStrategy.apply(eligibleInternshipIds, preferenceScores, userRequirements, 1);
     }

@@ -4,7 +4,6 @@ import com.example.reccomendation_system.dto.LocationCoordinates;
 import com.example.reccomendation_system.dto.LocationDTO;
 import com.example.reccomendation_system.dto.UserRequirements;
 import com.example.reccomendation_system.helper.EuclideanDistanceCalculator;
-import com.example.reccomendation_system.repository.CityCoordinatesJpaRepository;
 import com.example.reccomendation_system.repository.InternshipJpaRepository;
 import com.example.reccomendation_system.repository.ScoreStrategy;
 import com.example.reccomendation_system.repository.StateCoordinatesJpaRepository;
@@ -21,27 +20,25 @@ public class LocationPreferenceScoreStrategy implements ScoreStrategy {
     private final DefaultScoreStrategy defaultScoreStrategy;
     private final EuclideanDistanceCalculator euclideanDistanceCalculator;
     private final InternshipJpaRepository internshipJpaRepository;
-    private final CityCoordinatesJpaRepository cityCoordinatesJpaRepository;
     private final StateCoordinatesJpaRepository stateCoordinatesJpaRepository;
 
     @Autowired
-    public LocationPreferenceScoreStrategy(DefaultScoreStrategy defaultScoreStrategy, EuclideanDistanceCalculator euclideanDistanceCalculator, InternshipJpaRepository internshipJpaRepository, CityCoordinatesJpaRepository cityCoordinatesJpaRepository, StateCoordinatesJpaRepository stateCoordinatesJpaRepository) {
+    public LocationPreferenceScoreStrategy(DefaultScoreStrategy defaultScoreStrategy, EuclideanDistanceCalculator euclideanDistanceCalculator, InternshipJpaRepository internshipJpaRepository, StateCoordinatesJpaRepository stateCoordinatesJpaRepository) {
         this.defaultScoreStrategy = defaultScoreStrategy;
         this.euclideanDistanceCalculator = euclideanDistanceCalculator;
         this.internshipJpaRepository = internshipJpaRepository;
-        this.cityCoordinatesJpaRepository = cityCoordinatesJpaRepository;
         this.stateCoordinatesJpaRepository = stateCoordinatesJpaRepository;
     }
 
     @Override
     public void apply(List<Integer> eligibleInternshipIds, HashMap<Integer, Double> preferenceScores, UserRequirements userRequirements, double weight) {
-        String preferredCity = userRequirements.getPreferredCity(), preferredState = userRequirements.getPreferredState();
-        LocationCoordinates userPreferredCoords = getCityLocationCoordinates(preferredCity);
+        System.out.println("----------------------------------------");
+        System.out.println("Initial Preference Scores : " + preferenceScores);
+        System.out.println("----------------------------------------");
+        String preferredState = userRequirements.getPreferredState();
+        LocationCoordinates userPreferredCoords = getStateLocationCoordinates(preferredState);
         if (userPreferredCoords == null) {
-            userPreferredCoords = getStateLocationCoordinates(preferredState);
-            if (userPreferredCoords == null) {
-                throw new EntityNotFoundException("Invalid location: neither the city " + preferredCity + " nor state " + preferredState + " exists in the coordinates database.\n");
-            }
+            throw new EntityNotFoundException("Invalid location: State " + preferredState + " doesn't exist in the coordinates database.\n");
         }
         List<LocationDTO> internshipsLocations = internshipJpaRepository.findAllLocationCoordinatesById(eligibleInternshipIds);
         HashMap<Integer, Double> internshipLocationDistanceMap = new HashMap<>();
@@ -50,9 +47,9 @@ public class LocationPreferenceScoreStrategy implements ScoreStrategy {
 
         // get the distance for each internship location from preferred location
         for (LocationDTO locationDTO : internshipsLocations) {
-            double targetLatitude = locationDTO.getCityLatitude() == null ? locationDTO.getStateLatitude() : locationDTO.getCityLatitude();
-            double targetLongitude = locationDTO.getCityLongitude() == null ? locationDTO.getStateLongitude() : locationDTO.getCityLongitude();
-            String key = locationDTO.getCityName() != null ? locationDTO.getCityName() : locationDTO.getStateName();
+            double targetLatitude = locationDTO.getStateLatitude();
+            double targetLongitude = locationDTO.getStateLongitude();
+            String key = locationDTO.getStateName();
             if (distanceCache.containsKey(key)) {
                 // use cached distances
                 internshipLocationDistanceMap.put(locationDTO.getInternshipId(), distanceCache.get(key));
@@ -66,23 +63,20 @@ public class LocationPreferenceScoreStrategy implements ScoreStrategy {
                 minDistance = Math.min(minDistance, distance);
             }
         }
+        System.out.println(distanceCache);
 
         if (maxDistance != minDistance) {
             for (int id : eligibleInternshipIds) {
                 double distanceScore = (maxDistance - internshipLocationDistanceMap.get(id)) / (maxDistance - minDistance);
                 preferenceScores.put(id, distanceScore * weight + preferenceScores.getOrDefault(id, 0.0));
+                System.out.println(id + " " + distanceScore);
             }
         } else {
             defaultScoreStrategy.apply(eligibleInternshipIds, preferenceScores, userRequirements, weight);
         }
-    }
-
-    private LocationCoordinates getCityLocationCoordinates(String cityName) {
-        List<LocationCoordinates> locationCoordinates = cityCoordinatesJpaRepository.findCityCoordinatesByCityName(cityName);
-        if (locationCoordinates.isEmpty()) {
-            return null;
-        }
-        return locationCoordinates.get(0);
+        System.out.println("----------------------------------------");
+        System.out.println("Final Preference Scores : " + preferenceScores);
+        System.out.println("----------------------------------------");
     }
 
     private LocationCoordinates getStateLocationCoordinates(String stateName) {
