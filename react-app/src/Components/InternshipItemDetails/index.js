@@ -64,7 +64,7 @@ class InternshipItemDetailsWrapper extends Component {
               {/* Header */}
               <div className="job-header">
                 <img
-                  src={jobDetails.companyLogoUrl}
+                  src="https://res.cloudinary.com/dcbw1me25/image/upload/v1786887445/creative-logo-design-for-real-estate-company-vector_b0m6kc.jpg"
                   alt={jobDetails.companyName}
                   className="company-logo"
                 />
@@ -91,7 +91,7 @@ class InternshipItemDetailsWrapper extends Component {
                 <div className="icon-text-container">
                   <BsFillCheckCircleFill />
                   <p className="job-application">
-                    {jobDetails.totalCount}/{jobDetails.appliedCount} applied
+                    {jobDetails.appliedCount}/{jobDetails.totalCount} applied
                   </p>
                 </div>
               </div>
@@ -121,11 +121,11 @@ class InternshipItemDetailsWrapper extends Component {
                   <ul className="skills-list-container">
                     {jobDetails.skills.map((skill) => (
                       <li key={skill.id} className="skills-list-item">
-                        <img
+                        {/* <img
                           src={skill.imageURL}
                           alt={skill.skillName}
                           className="skill-logo"
-                        />
+                        /> */}
                         <p className="skill-name">{skill.skillName}</p>
                       </li>
                     ))}

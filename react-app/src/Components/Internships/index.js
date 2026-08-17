@@ -1,11 +1,8 @@
 import "./index.css";
 import { Component } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { Link } from "react-router-dom";
-import { BsSearch, BsCheck2Circle } from "react-icons/bs";
-import { MdOutlineTimer } from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
-import { MdVolumeUp, MdMic } from "react-icons/md";
+import { BsSearch } from "react-icons/bs";
+import InternshipCard from '../InternshipCard'
 
 const profileApiStatusConstants = {
   initial: "INITIAL",
@@ -45,50 +42,56 @@ const sectorsList = [
   { sectorId: "NGO", label: "Social Work / NGO" },
 ];
 
-const locationsList = [
-  { locationId: "NELLORE", label: "Nellore" },
-  { locationId: "HYD", label: "Hyderabad" },
-  { locationId: "CHENNAI", label: "Chennai" },
-  { locationId: "BANG", label: "Bangalore" },
-  { locationId: "DEL", label: "Delhi" },
-  { locationId: "MUM", label: "Mumbai" },
-  { locationId: "KOL", label: "Kolkata" },
-  { locationId: "PUNE", label: "Pune" },
-  { locationId: "REMOTE", label: "Remote" },
-];
-
-const employmentTypesList = [
-  { employmentTypeId: "FULLTIME", label: "Full Time" },
-  { employmentTypeId: "PARTTIME", label: "Part Time" },
-  { employmentTypeId: "FREELANCE", label: "Freelance" },
-  { employmentTypeId: "INTERNSHIP", label: "Internship" },
-  { employmentTypeId: "APPRENTICE", label: "Apprenticeship" },
-];
-
-const usersList = [
-  { userId: "1", label: "User 1" },
-  { userId: "2", label: "User 2" },
-  { userId: "3", label: "User 3" },
-  { userId: "4", label: "User 4" },
-  { userId: "5", label: "User 5" },
-  { userId: "6", label: "User 6" },
-  { userId: "7", label: "User 7" },
-  { userId: "8", label: "User 8" },
-  { userId: "9", label: "User 9" },
-  { userId: "10", label: "User 10" },
-];
+const employmentModesList = [
+  'Onsite', 'Remote', 'Hybrid', 'Any'
+]
 
 class Jobs extends Component {
   state = {
     selectedUserId: "",
+    locationsList: [],
+    selectedLocation: "",
+    selectedRole: '',
+    selectedMode: '',
     userDetails: null,
     userApiStatus: profileApiStatusConstants.initial,
     jobsList: [],
     jobsApiStatus: jobsApiStatusConstants.initial,
+    usersList: []
   };
 
   componentDidMount() {
     this.getJobsList();
+    this.getLocationsList();
+    this.getUsersList();
+  }
+
+  getUsersList = async () => {
+    const url = "/users/"
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      const usersList = data.map((item) => ({
+        label: item.name,
+        userId: item.id
+      }))
+      this.setState({usersList: usersList})
+    }
+  }
+
+  getLocationsList = async () => {
+    const url = "/locations/";
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json();
+      const locations = data.map((item) => ({
+        label: item.name,
+        locationId: item.id
+      }))
+      this.setState({locationsList: locations})
+    }
+    
   }
 
   // Jobs API
@@ -102,10 +105,27 @@ class Jobs extends Component {
       : `/internships`;
 
     try {
+      let requestBody;
+      const {selectedMode, selectedLocation} = this.state;
+      if (selectedUserId) {
+        requestBody = {
+          user_requirements: {
+            preferred_mode: selectedMode,
+            preferred_state: selectedLocation
+          },
+          project_experience_description: {
+            project_description: '',
+            experience_description: ''
+          }
+        }
+      
+      } else {
+        requestBody = {}
+      }
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
+        body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
@@ -126,7 +146,7 @@ class Jobs extends Component {
           totalCount: each.totalCount,
           benefits: each.benifits,
         }));
-
+        console.log("Formatted job data", formatted)
         this.setState({
           jobsList: formatted,
           jobsApiStatus: jobsApiStatusConstants.success,
@@ -172,7 +192,6 @@ class Jobs extends Component {
     this.setState({ selectedUserId: userId }, () => {
       if (userId) {
         this.getUserDetails(userId);
-        this.getJobsList(); // fetch recommended internships immediately
       } else {
         this.getJobsList(); // reset to all internships if no user
       }
@@ -190,13 +209,7 @@ class Jobs extends Component {
 
   // User dropdown & card renderer
   renderUserSection = () => {
-    const { selectedUserId, userDetails, userApiStatus } = this.state;
-    console.log(
-      "User API Status:",
-      userApiStatus,
-      "User Details:",
-      userDetails
-    );
+    const { selectedUserId, userDetails, userApiStatus, usersList } = this.state;
 
     switch (userApiStatus) {
       case profileApiStatusConstants.initial:
@@ -286,56 +299,7 @@ class Jobs extends Component {
         return (
           <ul className="jobs-list">
             {jobsList.map((job) => (
-              <Link
-                to={`/jobs/${job.id}`}
-                className="link"
-                state={{ extraDetails: job }}
-                key={job.id}
-              >
-                <li className="jobs-list-item">
-                  <div className="job-header">
-                    <img
-                      src={job.companyLogoUrl}
-                      alt={job.companyName}
-                      className="company-logo"
-                    />
-                    <div>
-                      <h1 className="job-title">{job.title}</h1>
-                      <p className="sector">{job.sector}</p>
-                    </div>
-                  </div>
-
-                  <div className="job-details-and-salary">
-                    <div className="job-details">
-                      <div className="icon-text-container">
-                        <MdLocationOn />
-                        <p className="job-location">{job.location}</p>
-                      </div>
-                      <div className="icon-text-container no-wrap">
-                        <MdOutlineTimer />
-                        <p className="job-duration">{job.duration}</p>
-                      </div>
-                    </div>
-                    <div className="icon-text-container">
-                      <BsCheck2Circle />
-                      <p className="job-application">
-                        {job.totalCount}/{job.appliedCount} applied
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-
-                  <h1 className="job-details-section-title">Description</h1>
-                  <p className="job-description">{job.jobDescription}</p>
-
-                  {job.benefits && (
-                    <>
-                      <h1 className="job-details-section-title">Benefits</h1>
-                      <p className="job-description">{job.benefits}</p>
-                    </>
-                  )}
-                </li>
-              </Link>
+              <InternshipCard job={job}/>
             ))}
           </ul>
         );
@@ -365,7 +329,20 @@ class Jobs extends Component {
     }
   };
 
+  onChangeLocation = (event) => {
+    this.setState({selectedLocation: event.target.value})
+  }
+
+  onChangeRole = (event) => {
+    this.setState({selectedRole: event.target.value})
+  }
+
+  onChangeEmploymentMode = (event) => {
+    this.setState({selectedMode: event.target.value})
+  }
+
   render() {
+    const {locationsList, selectedLocation, selectedRole, selectedMode} = this.state
     return (
       <div className="jobs-page">
         <div className="search-container-sm">
@@ -393,14 +370,11 @@ class Jobs extends Component {
           <div className="filter-container">
             <div className="label-icon-container">
               <h1 className="filter-title">Role</h1>
-              <div className="accessibility-icons">
-                <MdVolumeUp />
-                <MdMic />
-              </div>
             </div>
             <select
               className="filter-dropdown"
               name="role"
+              value={selectedRole}
               onChange={this.onChangeRole}
             >
               <option value="">Select Role</option>
@@ -417,10 +391,6 @@ class Jobs extends Component {
           <div className="filter-container">
             <div className="label-icon-container">
               <h1 className="filter-title">Sector</h1>
-              <div className="accessibility-icons">
-                <MdVolumeUp />
-                <MdMic />
-              </div>
             </div>
             <select
               className="filter-dropdown"
@@ -441,19 +411,16 @@ class Jobs extends Component {
           <div className="filter-container">
             <div className="label-icon-container">
               <h1 className="filter-title">Preferred Location</h1>
-              <div className="accessibility-icons">
-                <MdVolumeUp />
-                <MdMic />
-              </div>
             </div>
             <select
               className="filter-dropdown"
               name="location"
               onChange={this.onChangeLocation}
+              value={selectedLocation}
             >
               <option value="">Select Location</option>
               {locationsList.map((location) => (
-                <option key={location.locationId} value={location.locationId}>
+                <option key={location.locationId} value={location.label}>
                   {location.label}
                 </option>
               ))}
@@ -461,37 +428,42 @@ class Jobs extends Component {
           </div>
           <hr />
 
-          {/* Type of Employment */}
+          {/* Mode of Employment */}
 
           <div className="filter-container">
             <div className="label-icon-container">
-              <h1 className="filter-title">Type of Employment</h1>
-              <div className="accessibility-icons">
-                <MdVolumeUp />
-                <MdMic />
-              </div>
+              <h1 className="filter-title">Mode of Employment</h1>
             </div>
             <ul className="filter-list-container">
-              {employmentTypesList.map((type) => (
-                <li key={type.employmentTypeId}>
+              {employmentModesList.map((mode) => (
+                <li key={mode}>
                   <input
                     className="filter-checkbox"
-                    type="checkbox"
-                    id={type.employmentTypeId}
-                    value={type.employmentTypeId}
-                    onChange={this.onChangeEmploymentType}
+                    type="radio"
+                    id={mode}
+                    value={mode}
+                    name="mode"
+                    onChange={this.onChangeEmploymentMode}
                   />
                   <label
-                    htmlFor={type.employmentTypeId}
+                    htmlFor={mode}
                     className="filter-label"
                   >
-                    {type.label}
+                    {mode}
                   </label>
                 </li>
               ))}
             </ul>
           </div>
           <hr />
+
+          <button
+            type="button"
+            className="retry-button"
+            onClick={this.onRetryJobs}
+          >
+            Find Jobs
+          </button>
         </div>
 
         <div className="jobs-page-right-panel">
